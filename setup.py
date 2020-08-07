@@ -19,12 +19,14 @@ setuptools.setup(
     packages=setuptools.find_packages(where="faropt"),
 
     install_requires=[
-        "aws-cdk.core==1.38.0",
-        "aws-cdk.aws_iam==1.38.0",
-        "aws-cdk.aws_sqs==1.38.0",
-        "aws-cdk.aws_sns==1.38.0",
-        "aws-cdk.aws_sns_subscriptions==1.38.0",
-        "aws-cdk.aws_s3==1.38.0",
+        "aws-cdk.core==1.56.0",
+        "aws-cdk.aws_iam==1.56.0",
+        "aws-cdk.aws_sqs==1.56.0",
+        "aws-cdk.aws_sns==1.56.0",
+        "aws-cdk.aws_sns_subscriptions==1.56.0",
+        "aws-cdk.aws_s3==1.56.0",
+        "aws-cdk.aws_servicediscovery==1.56.0",
+        "aws-cdk.aws_s3_notifications==1.56.0"
     ],
 
     python_requires=">=3.6",

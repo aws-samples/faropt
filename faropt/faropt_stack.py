@@ -7,7 +7,6 @@ from aws_cdk import (
     aws_servicediscovery as sd,
     aws_sns_subscriptions as subs,
     core,
-    aws_ecs_patterns as ecs_patterns,
     aws_ecs as ecs,
     aws_lambda as _lambda,
     aws_s3 as _s3,
@@ -95,3 +94,5 @@ class FaroptStack(core.Stack):
 
         # assign notification for the s3 event type (ex: OBJECT_CREATED)
         s3.add_event_notification(_s3.EventType.OBJECT_CREATED, notification)
+        
+        core.CfnOutput(self, 's3output', value=s3.bucket_name, export_name='bucket')
