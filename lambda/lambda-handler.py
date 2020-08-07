@@ -4,12 +4,19 @@ import os
 def main(event, context):
     # save event to logs
     print(event)
+    print(event['Records'][0]['s3']['object']['key'])
+    
+    
+    coverrides = { "containerOverrides": [ { "name": "FarOptImage", "environment": [ { "name": "s3key", "value": event['Records'][0]['s3']['object']['key'] } ] } ] }
+    
+    
     client = boto3.client('ecs')
     response = client.run_task(
     cluster=os.environ['cluster_name'], # # name of the cluster
     launchType = os.environ['launch_type'],
     taskDefinition=os.environ['task_family'], # replace with your task definition name and revision
     count = 1,
+    overrides = coverrides,
     platformVersion='LATEST',
     networkConfiguration={
         'awsvpcConfiguration': {

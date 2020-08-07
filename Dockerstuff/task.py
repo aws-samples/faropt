@@ -2,12 +2,12 @@ print(" ____ __   __   __  ____ ____\n(_  _/  \ / _\ / _\/ ___(_  _)\n  )((  O /
 print("---------------------------------------------------------------")
 print('Downloading source')
 import os
-print('Looking for source.zip in ',os.environ['s3bucket'])
+print('Looking for source.zip in ',os.environ['s3bucket'],'/',os.environ['s3key'])
 
 import boto3
 
 s3 = boto3.client('s3')
-s3.download_file(os.environ['s3bucket'], 'source.zip', 'source.zip')
+s3.download_file(os.environ['s3bucket'], os.environ['s3key'], 'source.zip')
 
 print('Downloaded zip, uncompressing')
 

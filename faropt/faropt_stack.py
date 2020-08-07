@@ -60,11 +60,11 @@ class FaroptStack(core.Stack):
         faroptTask = ecs.TaskDefinition(self, 'taskDefinitionScheduler',
             cpu='4096', memory_mib='8192',network_mode=ecs.NetworkMode.AWS_VPC,
             placement_constraints=None, execution_role=nRole,
-            family='Toaast-Scheduler', task_role=nRole, compatibility = ecs.Compatibility.FARGATE)
+            family='Faropt-Scheduler', task_role=nRole, compatibility = ecs.Compatibility.FARGATE)
 
         faroptTask.add_container('FarOptImage', image=dockercontainer, cpu=4096,
         memory_limit_mib=8192, memory_reservation_mib=8192,environment={'s3bucket':s3.bucket_name},
-        logging=ecs.LogDriver.aws_logs(stream_prefix='toaastlogs',log_group = w_logs))
+        logging=ecs.LogDriver.aws_logs(stream_prefix='faroptlogs',log_group = w_logs))
             
         
         
