@@ -8,3 +8,4 @@ app = core.App()
 FaroptStack(app, "faropt")#, env={'region': 'us-west-2'}) #overriding region for test
 
 app.synth()
+
