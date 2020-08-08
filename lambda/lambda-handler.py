@@ -4,7 +4,8 @@ import os
 def main(event, context):
     # save event to logs
     print(event)
-    print(event['Records'][0]['s3']['object']['key'])
+    jobname = event['Records'][0]['s3']['object']['key']
+    print(jobname)
     
     
     coverrides = { "containerOverrides": [ { "name": "FarOptImage", "environment": [ { "name": "s3key", "value": event['Records'][0]['s3']['object']['key'] } ] } ] }
@@ -18,6 +19,13 @@ def main(event, context):
     count = 1,
     overrides = coverrides,
     platformVersion='LATEST',
+    enableECSManagedTags=True,
+    tags=[
+        {
+            'key': 'jobname',
+            'value': jobname
+        },
+    ],
     networkConfiguration={
         'awsvpcConfiguration': {
             'subnets': [

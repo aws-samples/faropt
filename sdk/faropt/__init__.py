@@ -55,10 +55,11 @@ class FarOpt(object):
             print("Submitting job")
             s3_client = boto3.client('s3')
             try:
-                eventid = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+                eventid = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')+'-'+str(uuid4())
                 response = s3_client.upload_file(self.path_file_name, self.bucket,eventid+'/'+self.file_name)
                 print(response)
                 print("Submitted job!")
+                self.jobname = eventid
             except ClientError as e:
                 logging.error(e)
                 return False
