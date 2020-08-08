@@ -57,7 +57,7 @@ class FarOpt(object):
             try:
                 eventid = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')+'-'+str(uuid4())
                 response = s3_client.upload_file(self.path_file_name, self.bucket,eventid+'/'+self.file_name)
-                print(response)
+                print(eventid)
                 print("Submitted job!")
                 self.jobname = eventid
             except ClientError as e:

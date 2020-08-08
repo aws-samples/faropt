@@ -13,6 +13,22 @@ from aws_cdk import (
     aws_s3_notifications
 )
 
+import boto3
+client = boto3.client('ecs')
+
+response = client.put_account_setting(
+    name='serviceLongArnFormat',
+    value='enabled'
+)
+response = client.put_account_setting(
+    name='taskLongArnFormat',
+    value='enabled'
+)
+response = client.put_account_setting(
+    name='containerInstanceLongArnFormat',
+    value='enabled'
+)
+
 class FaroptStack(core.Stack):
 
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
@@ -26,7 +42,7 @@ class FaroptStack(core.Stack):
         subnets = vpc.private_subnets
 
         # Create log groups for workers
-        w_logs = logs.LogGroup(self, 'wlogGroup', log_group_name='wlogGroup')
+        w_logs = logs.LogGroup(self, 'faroptlogGroup', log_group_name='faroptlogGroup')
         
                 # #Create role for ECS
         nRole = iam.Role(self,'ECSExecutionRole',
