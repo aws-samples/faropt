@@ -101,7 +101,7 @@ class FaroptStack(core.Stack):
                                         'subnet2':subnets[-1].subnet_id,
                                         'bucket':s3.bucket_name
                                     },
-                                    initial_policy = [iam.PolicyStatement(actions=['ecs:RunTask','s3:*','iam:PassRole'],resources=['*'])])
+                                    initial_policy = [iam.PolicyStatement(actions=['ecs:RunTask','ecs:PutAccountSetting','s3:*','iam:PassRole'],resources=['*'])])
         
         
 

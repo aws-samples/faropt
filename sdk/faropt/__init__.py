@@ -67,6 +67,35 @@ class FarOpt(object):
             logging.error('Please configure the job first!')
             
         self.submitted = True
+    
+    def primary_status(self):
         
-    def logs(self):
-        print("Tailing logs")
+        return self.status()['tasks'][0]['lastStatus']
+        
+    def status(self):
+        if self.submitted:
+
+            client = boto3.client('ecs')
+            response1 = client.list_tasks(
+                        cluster='FarOptCluster',
+                        startedBy=self.jobname)
+            
+            running_tasks = response1['taskArns']
+            
+            if running_tasks == []:
+                print("No running tasks. Checking completed tasks...")
+                #check if stopped tasks exist
+                response1 = client.list_tasks(
+                        cluster='FarOptCluster',
+                        startedBy=self.jobname,
+                        desiredStatus='STOPPED')
+                        
+                stopped_tasks = response1['taskArns']
+                        
+            response = client.describe_tasks(cluster='FarOptCluster',
+            tasks=[response1['taskArns'][0]])
+            
+            return response
+                        
+        else:
+            print("Please submit a job first!")
