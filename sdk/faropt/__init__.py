@@ -38,9 +38,10 @@ class FarOpt(object):
     
         for dirname, subdirs, files in os.walk(source_dir):
             #zf.write(dirname)
+            print(dirname, subdirs, files)
             for filename in files:
                 print(filename)
-                zf.write(os.path.join(dirname,filename),filename)
+                zf.write(os.path.join(dirname,filename),os.path.relpath(dirname+'/'+filename,source_dir))
         zf.close()
         
         self.path_file_name = os.path.abspath(file_name)
