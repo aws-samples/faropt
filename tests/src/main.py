@@ -1,118 +1,198 @@
-print('Starting optimization')
+"""Capacited Vehicles Routing Problem (CVRP)."""
 
-"""
-The Looping Sudoku Problem Formulation for the PuLP Modeller
+# [START import]
+from __future__ import print_function
+from ortools.constraint_solver import routing_enums_pb2
+from ortools.constraint_solver import pywrapcp
+# [END import]
 
-Authors: Antony Phillips, Dr Stuart Mitchell
-edited by Dr Nathan Sudermann-Merx
-"""
 
-# Import PuLP modeler functions
-from pulp import *
+# [START data_model]
+def create_data_model():
+    """Stores the data for the problem."""
+    data = {}
+    data['distance_matrix'] = [
+        [
+            0, 548, 776, 696, 582, 274, 502, 194, 308, 194, 536, 502, 388, 354,
+            468, 776, 662
+        ],
+        [
+            548, 0, 684, 308, 194, 502, 730, 354, 696, 742, 1084, 594, 480, 674,
+            1016, 868, 1210
+        ],
+        [
+            776, 684, 0, 992, 878, 502, 274, 810, 468, 742, 400, 1278, 1164,
+            1130, 788, 1552, 754
+        ],
+        [
+            696, 308, 992, 0, 114, 650, 878, 502, 844, 890, 1232, 514, 628, 822,
+            1164, 560, 1358
+        ],
+        [
+            582, 194, 878, 114, 0, 536, 764, 388, 730, 776, 1118, 400, 514, 708,
+            1050, 674, 1244
+        ],
+        [
+            274, 502, 502, 650, 536, 0, 228, 308, 194, 240, 582, 776, 662, 628,
+            514, 1050, 708
+        ],
+        [
+            502, 730, 274, 878, 764, 228, 0, 536, 194, 468, 354, 1004, 890, 856,
+            514, 1278, 480
+        ],
+        [
+            194, 354, 810, 502, 388, 308, 536, 0, 342, 388, 730, 468, 354, 320,
+            662, 742, 856
+        ],
+        [
+            308, 696, 468, 844, 730, 194, 194, 342, 0, 274, 388, 810, 696, 662,
+            320, 1084, 514
+        ],
+        [
+            194, 742, 742, 890, 776, 240, 468, 388, 274, 0, 342, 536, 422, 388,
+            274, 810, 468
+        ],
+        [
+            536, 1084, 400, 1232, 1118, 582, 354, 730, 388, 342, 0, 878, 764,
+            730, 388, 1152, 354
+        ],
+        [
+            502, 594, 1278, 514, 400, 776, 1004, 468, 810, 536, 878, 0, 114,
+            308, 650, 274, 844
+        ],
+        [
+            388, 480, 1164, 628, 514, 662, 890, 354, 696, 422, 764, 114, 0, 194,
+            536, 388, 730
+        ],
+        [
+            354, 674, 1130, 822, 708, 628, 856, 320, 662, 388, 730, 308, 194, 0,
+            342, 422, 536
+        ],
+        [
+            468, 1016, 788, 1164, 1050, 514, 514, 662, 320, 274, 388, 650, 536,
+            342, 0, 764, 194
+        ],
+        [
+            776, 868, 1552, 560, 674, 1050, 1278, 742, 1084, 810, 1152, 274,
+            388, 422, 764, 0, 798
+        ],
+        [
+            662, 1210, 754, 1358, 1244, 708, 480, 856, 514, 468, 354, 844, 730,
+            536, 194, 798, 0
+        ],
+    ]
+    # [START demands_capacities]
+    data['demands'] = [0, 1, 1, 2, 4, 2, 4, 8, 8, 1, 2, 1, 2, 4, 4, 8, 8]
+    data['vehicle_capacities'] = [15, 15, 15, 15]
+    # [END demands_capacities]
+    data['num_vehicles'] = 4
+    data['depot'] = 0
+    return data
+    # [END data_model]
 
-# All rows, columns and values within a Sudoku take values from 1 to 9
-VALS = ROWS = COLS = range(1, 10)
 
-# The boxes list is created, with the row and column index of each square in each box
-Boxes = [
-    [(3 * i + k + 1, 3 * j + l + 1) for k in range(3) for l in range(3)]
-    for i in range(3) for j in range(3)
-]
+# [START solution_printer]
+def print_solution(data, manager, routing, solution):
+    """Prints solution on console."""
+    total_distance = 0
+    total_load = 0
+    for vehicle_id in range(data['num_vehicles']):
+        index = routing.Start(vehicle_id)
+        plan_output = 'Route for vehicle {}:\n'.format(vehicle_id)
+        route_distance = 0
+        route_load = 0
+        while not routing.IsEnd(index):
+            node_index = manager.IndexToNode(index)
+            route_load += data['demands'][node_index]
+            plan_output += ' {0} Load({1}) -> '.format(node_index, route_load)
+            previous_index = index
+            index = solution.Value(routing.NextVar(index))
+            route_distance += routing.GetArcCostForVehicle(
+                previous_index, index, vehicle_id)
+        plan_output += ' {0} Load({1})\n'.format(manager.IndexToNode(index),
+                                                 route_load)
+        plan_output += 'Distance of the route: {}m\n'.format(route_distance)
+        plan_output += 'Load of the route: {}\n'.format(route_load)
+        print(plan_output)
+        total_distance += route_distance
+        total_load += route_load
+    print('Total distance of all routes: {}m'.format(total_distance))
+    print('Total load of all routes: {}'.format(total_load))
+    # [END solution_printer]
 
-# The prob variable is created to contain the problem data
-prob = LpProblem("Sudoku Problem")
 
-# The decision variables are created
-choices = LpVariable.dicts("Choice", (VALS, ROWS, COLS), cat='Binary')
+def main():
+    """Solve the CVRP problem."""
+    # Instantiate the data problem.
+    # [START data]
+    data = create_data_model()
+    # [END data]
 
-# We do not define an objective function since none is needed
+    # Create the routing index manager.
+    # [START index_manager]
+    manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']),
+                                           data['num_vehicles'], data['depot'])
+    # [END index_manager]
 
-# A constraint ensuring that only one value can be in each square is created
-for r in ROWS:
-    for c in COLS:
-        prob += lpSum([choices[v][r][c] for v in VALS]) == 1
+    # Create Routing Model.
+    # [START routing_model]
+    routing = pywrapcp.RoutingModel(manager)
 
-# The row, column and box constraints are added for each value
-for v in VALS:
-    for r in ROWS:
-        prob += lpSum([choices[v][r][c] for c in COLS]) == 1
+    # [END routing_model]
 
-    for c in COLS:
-        prob += lpSum([choices[v][r][c] for r in ROWS]) == 1
+    # Create and register a transit callback.
+    # [START transit_callback]
+    def distance_callback(from_index, to_index):
+        """Returns the distance between the two nodes."""
+        # Convert from routing variable Index to distance matrix NodeIndex.
+        from_node = manager.IndexToNode(from_index)
+        to_node = manager.IndexToNode(to_index)
+        return data['distance_matrix'][from_node][to_node]
 
-    for b in Boxes:
-        prob += lpSum([choices[v][r][c] for (r, c) in b]) == 1
+    transit_callback_index = routing.RegisterTransitCallback(distance_callback)
+    # [END transit_callback]
 
-# The starting numbers are entered as constraints
-input_data = [
-    (5, 1, 1),
-    (6, 2, 1),
-    (8, 4, 1),
-    (4, 5, 1),
-    (7, 6, 1),
-    (3, 1, 2),
-    (9, 3, 2),
-    (6, 7, 2),
-    (8, 3, 3),
-    (1, 2, 4),
-    (8, 5, 4),
-    (4, 8, 4),
-    (7, 1, 5),
-    (9, 2, 5),
-    (6, 4, 5),
-    (2, 6, 5),
-    (1, 8, 5),
-    (8, 9, 5),
-    (5, 2, 6),
-    (3, 5, 6),
-    (9, 8, 6),
-    (2, 7, 7),
-    (6, 3, 8),
-    (8, 7, 8),
-    (7, 9, 8),
-    (3, 4, 9),
-    # Since the previous Sudoku contains only one unique solution, we remove some numers from the board to obtain a
-    # Sudoku with multiple solutions
-#    (1, 5, 9),
-#    (6, 6, 9),
-#    (5, 8, 9)
-]
+    # Define cost of each arc.
+    # [START arc_cost]
+    routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
 
-for (v, r, c) in input_data:
-    prob += choices[v][r][c] == 1
+    # [END arc_cost]
 
-# The problem data is written to an .lp file
-prob.writeLP("Sudoku.lp")
+    # Add Capacity constraint.
+    # [START capacity_constraint]
+    def demand_callback(from_index):
+        """Returns the demand of the node."""
+        # Convert from routing variable Index to demands NodeIndex.
+        from_node = manager.IndexToNode(from_index)
+        return data['demands'][from_node]
 
-# A file called sudokuout.txt is created/overwritten for writing to
-sudokuout = open('sudokuout.txt','w')
+    demand_callback_index = routing.RegisterUnaryTransitCallback(
+        demand_callback)
+    routing.AddDimensionWithVehicleCapacity(
+        demand_callback_index,
+        0,  # null capacity slack
+        data['vehicle_capacities'],  # vehicle maximum capacities
+        True,  # start cumul to zero
+        'Capacity')
+    # [END capacity_constraint]
 
-while True:
-    prob.solve()
-    # The status of the solution is printed to the screen
-    print("Status:", LpStatus[prob.status])
-    # The solution is printed if it was deemed "optimal" i.e met the constraints
-    if LpStatus[prob.status] == "Optimal":
-        # The solution is written to the sudokuout.txt file
-        for r in ROWS:
-            if r in [1, 4, 7]:
-                sudokuout.write("+-------+-------+-------+\n")
-            for c in COLS:
-                for v in VALS:
-                    if value(choices[v][r][c]) == 1:
-                        if c in [1, 4, 7]:
-                            sudokuout.write("| ")
-                        sudokuout.write(str(v) + " ")
-                        if c == 9:
-                            sudokuout.write("|\n")
-        sudokuout.write("+-------+-------+-------+\n\n")
-        # The constraint is added that the same solution cannot be returned again
-        prob += lpSum([choices[v][r][c] for v in VALS for r in ROWS for c in COLS
-                       if value(choices[v][r][c]) == 1]) <= 80
-    # If a new optimal solution cannot be found, we end the program
-    else:
-        break
-sudokuout.close()
+    # Setting first solution heuristic.
+    # [START parameters]
+    search_parameters = pywrapcp.DefaultRoutingSearchParameters()
+    search_parameters.first_solution_strategy = (
+        routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC)
+    # [END parameters]
 
-# The location of the solutions is give to the user
-print("Solutions Written to sudokuout.txt")
+    # Solve the problem.
+    # [START solve]
+    solution = routing.SolveWithParameters(search_parameters)
+    # [END solve]
+
+    # Print solution on console.
+    # [START print_solution]
+    if solution:
+        print_solution(data, manager, routing, solution)
+    # [END print_solution]
+
+
+main()

@@ -1,4 +1,4 @@
-print(" ____ __   __   __  ____ ____\n(_  _/  \ / _\ / _\/ ___(_  _)\n  )((  O /    /    \___ \ )(  \n (__)\__/\_/\_\_/\_(____/(__)")
+print(" Starting FarOpt backend")
 print("---------------------------------------------------------------")
 print('Downloading source')
 import os
@@ -7,7 +7,7 @@ print('Looking for source.zip in ',os.environ['s3bucket'],'/',os.environ['s3key'
 import boto3
 
 s3 = boto3.client('s3')
-s3.download_file(os.environ['s3bucket'], os.environ['s3key'], 'source.zip')
+s3.download_file(os.environ['s3bucket'], os.environ['s3key']+'/source.zip', 'source.zip')
 
 print('Downloaded zip, uncompressing')
 

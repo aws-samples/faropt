@@ -1,4 +1,4 @@
-print('Starting optimization')
+print('Starting Sample optimization problem!')
 
 """
 The Looping Sudoku Problem Formulation for the PuLP Modeller

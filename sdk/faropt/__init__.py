@@ -19,6 +19,8 @@ class FarOpt(object):
                 self.ready = True
                 self.stackname = stackname
                 self.bucket = response['Stacks'][0]['Outputs'][0]['OutputValue']
+                self.configured = False
+                self.submitted = False
         except Exception as e:
             self.ready = False
             print(e)
@@ -71,6 +73,19 @@ class FarOpt(object):
     def primary_status(self):
         
         return self.status()['tasks'][0]['lastStatus']
+    
+    def logs(self):
+        if self.primary_status() in ['STOPPED','DEPROVISIONING','RUNNING']:
+            taskarn = self.status()['tasks'][0]['taskArn'].split('/')[-1]
+            client = boto3.client('logs')
+            response = client.get_log_events(
+                        logGroupName='faroptlogGroup',
+                        logStreamName='faroptlogs/FarOptImage/' + taskarn)
+        
+            print(response)
+        else:
+            print('Please wait for job to start running')
+    
         
     def status(self):
         if self.submitted:
@@ -98,4 +113,4 @@ class FarOpt(object):
             return response
                         
         else:
-            print("Please submit a job first!")
+            logging.error("Please submit a job first!")
