@@ -74,17 +74,59 @@ class FarOpt(object):
         
         return self.status()['tasks'][0]['lastStatus']
     
-    def logs(self):
-        if self.primary_status() in ['STOPPED','DEPROVISIONING','RUNNING']:
+    
+    def stream_logs(self,start_time=0, skip=0):
+        #def log_stream(client, log_group, stream_name, start_time=0, skip=0): from SM stream logs
+
+        next_token = None
+    
+        event_count = 1
+        while event_count > 0:
+            if next_token is not None:
+                token_arg = {"nextToken": next_token}
+            else:
+                token_arg = {}
+            
             taskarn = self.status()['tasks'][0]['taskArn'].split('/')[-1]
             client = boto3.client('logs')
+                        
             response = client.get_log_events(
-                        logGroupName='faroptlogGroup',
-                        logStreamName='faroptlogs/FarOptImage/' + taskarn)
+                logGroupName='faroptlogGroup',
+                logStreamName='faroptlogs/FarOptImage/' + taskarn,
+                startTime=start_time,
+                startFromHead=True,
+                **token_arg
+            )
+            
+            next_token = response["nextForwardToken"]
+            events = response["events"]
+            event_count = len(events)
+            if event_count > skip:
+                events = events[skip:]
+                skip = 0
+            else:
+                skip = skip - event_count
+                events = []
+            for ev in events:
+                yield ev
         
-            print(response)
+    
+    def logs(self, stream=False):
+        
+        if self.primary_status() in ['STOPPED','DEPROVISIONING','RUNNING']:
+            if stream == False:
+                taskarn = self.status()['tasks'][0]['taskArn'].split('/')[-1]
+                client = boto3.client('logs')
+                response = client.get_log_events(
+                            logGroupName='faroptlogGroup',
+                            logStreamName='faroptlogs/FarOptImage/' + taskarn)
+            
+                print(response)
+            else:
+                for ev in self.stream_logs():
+                    print(ev)
         else:
-            print('Please wait for job to start running')
+            print('Job status: ' + self.primary_status()+ ' | Please wait for job to start running')
     
         
     def status(self):
