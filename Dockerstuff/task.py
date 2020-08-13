@@ -9,14 +9,13 @@ import boto3
 s3 = boto3.client('s3')
 s3.download_file(os.environ['s3bucket'], os.environ['s3key']+'/source.zip', 'source.zip')
 
-print('Downloaded zip, uncompressing')
-
+print('Downloaded source.zip, uncompressing')
 
 import zipfile
 with zipfile.ZipFile('source.zip', 'r') as zip_ref:
     zip_ref.extractall('/tmp/')
 
-print(os.listdir("/tmp/"))
+listfiles = os.listdir("/tmp/")
 
 print("---------------------------------------------------------------")
 # print('Checking script with modulefinder...')
@@ -34,5 +33,11 @@ print("---------------------------------------------------------------")
 # print('Modules not imported:')
 # print('\n'.join(finder.badmodules.keys()))
 
+import subprocess
 
-import main
+if 'main.jl' in listfiles:
+    subprocess.run('julia main.jl')
+elif 'main.py' in listfiles:
+    subprocess.run('python main.py')
+else:
+    print('Please add a main script (main.py or main.jl) at the root of your project folder.')

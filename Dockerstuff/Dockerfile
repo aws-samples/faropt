@@ -19,4 +19,6 @@ RUN chmod +x /tmp/jill.sh
 
 RUN bash /tmp/jill.sh -y
 
+RUN julia -e 'using Pkg; Pkg.add(["JuMP"])'
+
 CMD python /tmp/task.py
