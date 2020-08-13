@@ -44,7 +44,7 @@ class FaroptStack(core.Stack):
         # Create log groups for workers
         w_logs = logs.LogGroup(self, 'faroptlogGroup', log_group_name='faroptlogGroup')
         
-                # #Create role for ECS
+        # #Create role for ECS
         nRole = iam.Role(self,'ECSExecutionRole',
             assumed_by = iam.ServicePrincipal('ecs-tasks'))
         
@@ -58,7 +58,7 @@ class FaroptStack(core.Stack):
                 'ecr:BatchGetImage',
                 'ecr:GetAuthorizationToken',
                 'logs:CreateLogStream',
-                'logs:PutLogEvents','sagemaker:*','s3:*'], resources=['*',]),]).attach_to_role(nRole)
+                'logs:PutLogEvents','sagemaker:*','s3:*','cloudwatch:PutMetricData'], resources=['*',]),]).attach_to_role(nRole)
 
 
         # Create ECS cluster

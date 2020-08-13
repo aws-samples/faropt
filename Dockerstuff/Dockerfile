@@ -7,4 +7,16 @@ COPY task.py /tmp
 
 #Dummy main py, real one is downloaded at runtime from s3 as source.zip
 COPY main.py /tmp
+
+#common utils
+COPY utils.py /tmp
+
+RUN apt-get update && apt-get install -y libaio1 wget unzip
+
+COPY jill.sh /tmp
+
+RUN chmod +x /tmp/jill.sh
+
+RUN bash /tmp/jill.sh -y
+
 CMD python /tmp/task.py

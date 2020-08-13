@@ -5,6 +5,9 @@ import os
 import zipfile
 from datetime import datetime
 from uuid import uuid4
+import time
+
+logging.basicConfig(level=logging.INFO)
 
 
 class FarOpt(object):
@@ -15,7 +18,7 @@ class FarOpt(object):
         try:
             response = cf.describe_stacks(StackName=stackname)
             if response['Stacks'][0]['StackStatus'] in ['CREATE_COMPLETE','UPDATE_COMPLETE']:
-                print('FarOpt backend is ready!')
+                logging.info('FarOpt backend is ready!')
                 self.ready = True
                 self.stackname = stackname
                 self.bucket = response['Stacks'][0]['Outputs'][0]['OutputValue']
@@ -23,7 +26,7 @@ class FarOpt(object):
                 self.submitted = False
         except Exception as e:
             self.ready = False
-            print(e)
+            logging.error(e)
         
         self.allowed_frameworks = ['ortools']
         
@@ -34,7 +37,7 @@ class FarOpt(object):
             self.framework = framework
     
     def configure (self,source_dir):
-        print("Listing project files ...")
+        logging.info("Listing project files ...")
         file_name = "source.zip"
         zf = zipfile.ZipFile("source.zip", "w")
     
@@ -50,17 +53,17 @@ class FarOpt(object):
         self.file_name = file_name
             
         self.configured = True
-        print("Configured job!")
+        logging.info("Configured job!")
         
     def submit(self):
         if self.configured :
-            print("Submitting job")
+            logging.info("Submitting job")
             s3_client = boto3.client('s3')
             try:
                 eventid = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')+'-'+str(uuid4())
                 response = s3_client.upload_file(self.path_file_name, self.bucket,eventid+'/'+self.file_name)
-                print(eventid)
-                print("Submitted job!")
+                logging.info("Submitted job! id: " + str(eventid))
+
                 self.jobname = eventid
             except ClientError as e:
                 logging.error(e)
@@ -69,10 +72,6 @@ class FarOpt(object):
             logging.error('Please configure the job first!')
             
         self.submitted = True
-    
-    def primary_status(self):
-        
-        return self.status()['tasks'][0]['lastStatus']
     
     
     def stream_logs(self,start_time=0, skip=0):
@@ -109,25 +108,43 @@ class FarOpt(object):
                 events = []
             for ev in events:
                 yield ev
-        
+     
     
-    def logs(self, stream=False):
+    def stop(self):
+        # if self.primary_status() in ['STOPPED','DEPROVISIONING','RUNNING']:
+        client = boto3.client('ecs')
+        taskarn = self.status()['tasks'][0]['taskArn'].split('/')[-1]
+        response = client.stop_task(
+            cluster='FarOptCluster',
+            task=taskarn,
+            reason='User stopped task'
+            )
+        # else:
+        #     logging.info('Job status: ' + self.primary_status())
+            
+    
+    def printlogs(self,response):
+
+        for ev in response['events']:
+            print(str(ev['timestamp']) + ' | ' + ev['message'])
+    
+    def logs(self):
         
         if self.primary_status() in ['STOPPED','DEPROVISIONING','RUNNING']:
-            if stream == False:
-                taskarn = self.status()['tasks'][0]['taskArn'].split('/')[-1]
-                client = boto3.client('logs')
-                response = client.get_log_events(
-                            logGroupName='faroptlogGroup',
-                            logStreamName='faroptlogs/FarOptImage/' + taskarn)
+            taskarn = self.status()['tasks'][0]['taskArn'].split('/')[-1]
+            client = boto3.client('logs')
+            response = client.get_log_events(
+                        logGroupName='faroptlogGroup',
+                        logStreamName='faroptlogs/FarOptImage/' + taskarn)
             
-                print(response)
-            else:
-                for ev in self.stream_logs():
-                    print(ev)
+            self.printlogs(response)
+
         else:
-            print('Job status: ' + self.primary_status()+ ' | Please wait for job to start running')
-    
+            print(self.primary_status())
+                
+                
+    def primary_status(self):
+        return self.status()['tasks'][0]['lastStatus']
         
     def status(self):
         if self.submitted:
@@ -140,7 +157,7 @@ class FarOpt(object):
             running_tasks = response1['taskArns']
             
             if running_tasks == []:
-                print("No running tasks. Checking completed tasks...")
+                logging.info("No running tasks. Checking completed tasks...")
                 #check if stopped tasks exist
                 response1 = client.list_tasks(
                         cluster='FarOptCluster',
