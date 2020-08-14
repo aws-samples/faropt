@@ -1,10 +1,15 @@
+import boto3
+import sys
+import os
+
 print(" Starting FarOpt backend")
+print("\n███████╗ █████╗ ██████╗  ██████╗ ██████╗ ████████╗\n██╔════╝██╔══██╗██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝\n█████╗  ███████║██████╔╝██║   ██║██████╔╝   ██║   \n██╔══╝  ██╔══██║██╔══██╗██║   ██║██╔═══╝    ██║   \n██║     ██║  ██║██║  ██║╚██████╔╝██║        ██║   \n╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝        ╚═╝   \n\n")
 print("---------------------------------------------------------------")
 print('Downloading source')
-import os
+
 print('Looking for source.zip in ',os.environ['s3bucket'],'/',os.environ['s3key'])
 
-import boto3
+
 
 s3 = boto3.client('s3')
 s3.download_file(os.environ['s3bucket'], os.environ['s3key']+'/source.zip', 'source.zip')
@@ -35,9 +40,13 @@ print("---------------------------------------------------------------")
 
 import subprocess
 
+print(listfiles)
+
+sys.stdout.flush()
+
 if 'main.jl' in listfiles:
-    subprocess.run('julia main.jl')
+    subprocess.run('julia /tmp/main.jl'.split(' '),stderr=sys.stderr, stdout=sys.stdout)
 elif 'main.py' in listfiles:
-    subprocess.run('python main.py')
+    subprocess.run('python /tmp/main.py'.split(' '),stderr=sys.stderr, stdout=sys.stdout)
 else:
     print('Please add a main script (main.py or main.jl) at the root of your project folder.')

@@ -129,7 +129,7 @@ class FarOpt(object):
             print(str(ev['timestamp']) + ' | ' + ev['message'])
     
     def logs(self):
-        
+
         if self.primary_status() in ['STOPPED','DEPROVISIONING','RUNNING']:
             taskarn = self.status()['tasks'][0]['taskArn'].split('/')[-1]
             client = boto3.client('logs')
@@ -140,7 +140,7 @@ class FarOpt(object):
             self.printlogs(response)
 
         else:
-            print(self.primary_status())
+            print('Please wait for the task to start running | ' + self.primary_status())
                 
                 
     def primary_status(self):

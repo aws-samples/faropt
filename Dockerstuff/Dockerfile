@@ -13,12 +13,15 @@ COPY utils.py /tmp
 
 RUN apt-get update && apt-get install -y libaio1 wget unzip
 
+# Install Julia and JUMP
 COPY jill.sh /tmp
 
 RUN chmod +x /tmp/jill.sh
 
 RUN bash /tmp/jill.sh -y
 
-RUN julia -e 'using Pkg; Pkg.add(["JuMP"])'
+RUN julia -e 'using Pkg; Pkg.add(["JuMP","GLPKMathProgInterface","SCS","LinearAlgebra","Test"])'
+
+RUN julia --version
 
 CMD python /tmp/task.py

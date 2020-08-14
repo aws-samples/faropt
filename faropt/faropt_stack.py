@@ -10,7 +10,8 @@ from aws_cdk import (
     aws_ecs as ecs,
     aws_lambda as _lambda,
     aws_s3 as _s3,
-    aws_s3_notifications
+    aws_s3_notifications,
+    aws_dynamodb as ddb
 )
 
 import boto3
@@ -71,6 +72,14 @@ class FaroptStack(core.Stack):
         
         s3 = _s3.Bucket(self, "s3bucket")
         
+        # 
+        pkey = ddb.Attribute(name='jobid', type=ddb.AttributeType.STRING)
+        jobtable = ddb.Table(self,"faroptjobtable", table_name='faroptjobtable',partition_key=pkey)#,
+        # billing_mode=None, encryption=None, encryption_key=None,
+        # point_in_time_recovery=None, read_capacity=None, removal_policy=None,
+        # replication_regions=None, server_side_encryption=None,
+        # sort_key=None, stream=None, time_to_live_attribute=None, write_capacity=None)
+        
         # -------------------- Add worker task ------------------------
         
         faroptTask = ecs.TaskDefinition(self, 'taskDefinitionScheduler',
@@ -112,3 +121,4 @@ class FaroptStack(core.Stack):
         s3.add_event_notification(_s3.EventType.OBJECT_CREATED, notification)
         
         core.CfnOutput(self, 's3output', value=s3.bucket_name, export_name='bucket')
+        core.CfnOutput(self, 'jobtable', value=jobtable.table_name, export_name='jobtable')
