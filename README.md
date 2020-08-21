@@ -4,7 +4,8 @@
 
 ![](./FarOpt.png)
 
-This architecture is a bare bones template of how you can run optimization models in a serverless fashion by uploading a source.zip file to the created S3 bucket. The source.zip may contain any number of files, but must have a main.py file (this is the driver file that will be run inside the container). Fargate will launch the container, run your code, push logs to cloudwatch and exit - you only pay for the seconds that this _task_ runs. 
+This architecture is a bare bones template of how you can run optimization models in a serverless fashion on Fargate. The Open source SDK can be used to submit optimization tasks and receive logs. 
+Fargate will launch the container, run your code, push logs to cloudwatch and exit - you only pay for the seconds that this _optimzation task_ runs. 
 
 Currently supported frameworks inlcude: 
 
@@ -15,7 +16,7 @@ Currently supported frameworks inlcude:
 
 ## What's coming up?
 1. Scheduling optimization jobs
-1. Demand forecasting
+1. Demand forecasting using Forecast
 1. Quantum Approximate Optimization Algorithm
 1. SageMaker RL solvers for certain problem types
 
