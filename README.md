@@ -4,7 +4,6 @@
 
 ![](./faropt.png)
 
-
 This architecture is a bare bones template of how you can run optimization models in a serverless fashion by uploading a source.zip file to the created S3 bucket. The source.zip may contain any number of files, but must have a main.py file (this is the driver file that will be run inside the container). Fargate will launch the container, run your code, push logs to cloudwatch and exit - you only pay for the seconds that this _task_ runs. 
 
 Currently supported frameworks inlcude: 
