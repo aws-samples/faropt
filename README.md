@@ -12,6 +12,7 @@ Currently supported frameworks inlcude:
 1. PuLP
 1. Pyomo
 1. OR Tools
+1. JuMP (Julia)
 
 ## Using the SDK
 
