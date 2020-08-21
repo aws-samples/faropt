@@ -2,7 +2,7 @@
 # FarOpt
 ## Fargate based serverless Numerical Optimization
 
-![](./faropt.png)
+![](./FarOpt.png)
 
 This architecture is a bare bones template of how you can run optimization models in a serverless fashion by uploading a source.zip file to the created S3 bucket. The source.zip may contain any number of files, but must have a main.py file (this is the driver file that will be run inside the container). Fargate will launch the container, run your code, push logs to cloudwatch and exit - you only pay for the seconds that this _task_ runs. 
 
@@ -11,6 +11,15 @@ Currently supported frameworks inlcude:
 1. PuLP
 1. Pyomo
 1. OR Tools
+
+
+## What's coming up?
+1. Scheduling optimization jobs
+1. Demand forecasting
+1. Quantum Approximate Optimization Algorithm
+1. SageMaker RL solvers for certain problem types
+
+![](./faropt.png)
 
 # How to use this CDK project
 
