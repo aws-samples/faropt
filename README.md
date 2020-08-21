@@ -13,6 +13,35 @@ Currently supported frameworks inlcude:
 1. Pyomo
 1. OR Tools
 
+## Using the SDK
+
+```python
+from faropt
+import FarOpt
+
+fo = FarOpt()
+
+fo.configure('../project/src/')
+
+fo.submit()
+
+fo.logs()
+```
+
+```html
+1598041071123 |  Starting FarOpt backend
+1598041071123 | ███████╗ █████╗ ██████╗  ██████╗ ██████╗ ████████╗
+1598041071123 | ██╔════╝██╔══██╗██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝
+1598041071123 | █████╗  ███████║██████╔╝██║   ██║██████╔╝   ██║   
+1598041071123 | ██╔══╝  ██╔══██║██╔══██╗██║   ██║██╔═══╝    ██║   
+1598041071123 | ██║     ██║  ██║██║  ██║╚██████╔╝██║        ██║   
+1598041071123 | ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝        ╚═╝  
+.
+.
+.
+.
+.
+```
 
 ## What's coming up?
 1. Scheduling optimization jobs
