@@ -21,7 +21,8 @@ class FarOpt(object):
                 logging.info('FarOpt backend is ready!')
                 self.ready = True
                 self.stackname = stackname
-                self.bucket = response['Stacks'][0]['Outputs'][0]['OutputValue']
+                self.bucket = response['Stacks'][0]['Outputs'][0]['OutputValue'] # S3 bucket
+                self.jobtable = response['Stacks'][0]['Outputs'][1]['OutputValue'] # DynamoDB table
                 self.configured = False
                 self.submitted = False
         except Exception as e:
@@ -59,12 +60,26 @@ class FarOpt(object):
         if self.configured :
             logging.info("Submitting job")
             s3_client = boto3.client('s3')
+            self.ddb_resource = boto3.resource('dynamodb')
+            self.ddb_table = self.ddb_resource.Table(self.jobtable)
+            
             try:
                 eventid = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')+'-'+str(uuid4())
                 response = s3_client.upload_file(self.path_file_name, self.bucket,eventid+'/'+self.file_name)
+                
                 logging.info("Submitted job! id: " + str(eventid))
 
                 self.jobname = eventid
+                
+                # Add job to dynamoDB
+                job = {
+                'jobid': self.jobname,
+                'bucket': self.bucket,
+                'path': eventid+'/'+self.file_name}
+                
+                self.ddb_table.put_item(Item=job)
+                
+                
             except ClientError as e:
                 logging.error(e)
                 return False
@@ -73,6 +88,18 @@ class FarOpt(object):
             
         self.submitted = True
     
+    def list_jobs(self, limit=10):
+        ddb_client = boto3.client('dynamodb')
+        
+        response = ddb_client.scan(
+            TableName=self.jobtable,
+            Limit=limit)
+        
+        alljobs = []
+        for job in response['Items']:
+            alljobs.append({'jobid':job['jobid']['S'], 'bucket':job['bucket']['S'], 'path':job['path']['S']})
+            print(f"jobid:{job['jobid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']}")
+
     
     def stream_logs(self,start_time=0, skip=0):
         #def log_stream(client, log_group, stream_name, start_time=0, skip=0): from SM stream logs
