@@ -76,11 +76,11 @@ class FarOpt(object):
     def run_s3_job(self, bucket, key):
         logging.info("Downloading source...")
         s3 = boto3.client('s3')
-        with open('source.zip', 'wb') as f:
+        with open('/tmp/source.zip', 'wb') as f:
             s3.download_fileobj(bucket, key, f)
             
-        self.path_file_name = os.path.abspath('source.zip')
-        self.file_name = 'source.zip'
+        self.path_file_name = os.path.abspath('/tmp/source.zip')
+        self.file_name = '/tmp/source.zip'
         logging.info("Configured job!")
         self.configured = True
         self.submit()
@@ -96,11 +96,11 @@ class FarOpt(object):
             
             logging.info("Downloading recipe...")
             s3 = boto3.client('s3')
-            with open('source.zip', 'wb') as f:
+            with open('/tmp/source.zip', 'wb') as f:
                 s3.download_fileobj(bucket, path, f)
             
-            self.path_file_name = os.path.abspath('source.zip')
-            self.file_name = 'source.zip'
+            self.path_file_name = os.path.abspath('/tmp/source.zip')
+            self.file_name = '/tmp/source.zip'
             logging.info("Configured job!")
             self.configured = True
             self.submit()

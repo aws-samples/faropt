@@ -73,7 +73,18 @@ class FarOpt(object):
         else:
             logging.error('Please configure the job first!')
             
-    
+    def run_s3_job(self, bucket, key):
+        logging.info("Downloading source...")
+        s3 = boto3.client('s3')
+        with open('source.zip', 'wb') as f:
+            s3.download_fileobj(bucket, key, f)
+            
+        self.path_file_name = os.path.abspath('source.zip')
+        self.file_name = 'source.zip'
+        logging.info("Configured job!")
+        self.configured = True
+        self.submit()
+        
     def run_recipe(self, recipe_name):
         try:
             self.ddb_resource = boto3.resource('dynamodb')

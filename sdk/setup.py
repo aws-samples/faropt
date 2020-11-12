@@ -19,7 +19,7 @@ extras = {
 }
 
 setup(name='faropt',
-      version='0.1.5',
+      version='0.1.6',
       description='Fargate based Numerical Optimization Template',
       url='https://github.com/aws-samples/faropt',
       author='Shreyas Subramanian',
