@@ -57,6 +57,54 @@ class FarOpt(object):
         self.configured = True
         logging.info("Configured job!")
         
+    def add_recipe(self,recipe_name):
+        if self.configured:
+            self.ddb_resource = boto3.resource('dynamodb')
+            self.ddb_table = self.ddb_resource.Table(self.recipetable)
+            
+            job = {
+                'recipeid': recipe_name,
+                'bucket': self.bucket,
+                'path': self.jobname+'/'+self.file_name
+            }
+                
+            self.ddb_table.put_item(Item=job)
+            
+        else:
+            logging.error('Please configure the job first!')
+            
+    
+    def run_recipe(self, recipe_name):
+        try:
+            self.ddb_resource = boto3.resource('dynamodb')
+            self.ddb_table = self.ddb_resource.Table(self.recipetable)
+
+            response = self.ddb_table.get_item(Key={'recipeid': recipe_name})
+            path = response['Item']['path']
+            bucket = response['Item']['bucket']
+            
+            logging.info("Downloading recipe...")
+            s3 = boto3.client('s3')
+            with open('source.zip', 'wb') as f:
+                s3.download_fileobj(bucket, path, f)
+            
+            self.path_file_name = os.path.abspath('source.zip')
+            logging.info("Configured job!")
+            
+            self.submit()
+        
+        except ClientError as e:
+                logging.error(e)
+                return False
+        
+        
+    def wait(self):
+        while self.primary_status()!='STOPPED':
+            print(self.primary_status())
+            time.sleep(3)
+            
+        logging.info("JOB COMPLETED!")
+        
     def submit(self):
         if self.configured :
             logging.info("Submitting job")
@@ -89,6 +137,19 @@ class FarOpt(object):
             
         self.submitted = True
     
+    def list_recipes(self, limit=10):
+        ddb_client = boto3.client('dynamodb')
+        
+        response = ddb_client.scan(
+            TableName=self.recipetable,
+            Limit=limit)
+        
+        allrecipes = []
+        for job in response['Items']:
+            allrecipes.append({'recipeid':job['recipeid']['S'], 'bucket':job['bucket']['S'], 'path':job['path']['S']})
+            print(f"recipeid:{job['recipeid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']}")
+        self.recipes = allrecipes
+                  
     def list_jobs(self, limit=10):
         ddb_client = boto3.client('dynamodb')
         
@@ -100,6 +161,8 @@ class FarOpt(object):
         for job in response['Items']:
             alljobs.append({'jobid':job['jobid']['S'], 'bucket':job['bucket']['S'], 'path':job['path']['S']})
             print(f"jobid:{job['jobid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']}")
+        
+        self.jobs = alljobs
 
     
     def stream_logs(self,start_time=0, skip=0):
