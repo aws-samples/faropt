@@ -22,7 +22,8 @@ class FarOpt(object):
                 self.ready = True
                 self.stackname = stackname
                 self.bucket = response['Stacks'][0]['Outputs'][0]['OutputValue'] # S3 bucket
-                self.jobtable = response['Stacks'][0]['Outputs'][1]['OutputValue'] # DynamoDB table
+                self.jobtable = response['Stacks'][0]['Outputs'][2]['OutputValue'] # DynamoDB table for jobs
+                self.recipetable = response['Stacks'][0]['Outputs'][1]['OutputValue'] # DynamoDB table for recipes
                 self.configured = False
                 self.submitted = False
         except Exception as e:

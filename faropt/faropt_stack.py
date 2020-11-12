@@ -73,8 +73,11 @@ class FaroptStack(core.Stack):
         s3 = _s3.Bucket(self, "s3bucket")
         
         # 
-        pkey = ddb.Attribute(name='jobid', type=ddb.AttributeType.STRING)
-        jobtable = ddb.Table(self,"faroptjobtable", table_name='faroptjobtable',partition_key=pkey)#,
+        pkey1 = ddb.Attribute(name='jobid', type=ddb.AttributeType.STRING)
+        jobtable = ddb.Table(self,"FaroptJobTable", table_name='FaroptJobTable',partition_key=pkey1)#,
+        
+        pkey2 = ddb.Attribute(name='recipeid', type=ddb.AttributeType.STRING)
+        recipetable = ddb.Table(self,"FaroptRecipeTable", table_name='FaroptRecipeTable',partition_key=pkey2)#,
         # billing_mode=None, encryption=None, encryption_key=None,
         # point_in_time_recovery=None, read_capacity=None, removal_policy=None,
         # replication_regions=None, server_side_encryption=None,
@@ -122,3 +125,4 @@ class FaroptStack(core.Stack):
         
         core.CfnOutput(self, 's3output', value=s3.bucket_name, export_name='bucket')
         core.CfnOutput(self, 'jobtable', value=jobtable.table_name, export_name='jobtable')
+        core.CfnOutput(self, 'recipetable', value=recipetable.table_name, export_name='recipetable')
