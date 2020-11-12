@@ -89,8 +89,9 @@ class FarOpt(object):
                 s3.download_fileobj(bucket, path, f)
             
             self.path_file_name = os.path.abspath('source.zip')
+            self.file_name = 'source.zip'
             logging.info("Configured job!")
-            
+            self.configured = True
             self.submit()
         
         except ClientError as e:
