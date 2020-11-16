@@ -76,11 +76,11 @@ class FarOpt(object):
     def run_s3_job(self, bucket, key):
         logging.info("Downloading source...")
         s3 = boto3.client('s3')
-        with open('source.zip', 'wb') as f:
+        with open('/tmp/source.zip', 'wb') as f:
             s3.download_fileobj(bucket, key, f)
             
-        self.path_file_name = os.path.abspath('source.zip')
-        self.file_name = 'source.zip'
+        self.path_file_name = os.path.abspath('/tmp/source.zip')
+        self.file_name = '/tmp/source.zip'
         logging.info("Configured job!")
         self.configured = True
         self.submit()
@@ -96,11 +96,11 @@ class FarOpt(object):
             
             logging.info("Downloading recipe...")
             s3 = boto3.client('s3')
-            with open('source.zip', 'wb') as f:
+            with open('/tmp/source.zip', 'wb') as f:
                 s3.download_fileobj(bucket, path, f)
             
-            self.path_file_name = os.path.abspath('source.zip')
-            self.file_name = 'source.zip'
+            self.path_file_name = os.path.abspath('/tmp/source.zip')
+            self.file_name = '/tmp/source.zip'
             logging.info("Configured job!")
             self.configured = True
             self.submit()
@@ -158,9 +158,12 @@ class FarOpt(object):
         
         allrecipes = []
         for job in response['Items']:
-            allrecipes.append({'recipeid':job['recipeid']['S'], 'bucket':job['bucket']['S'], 'path':job['path']['S']})
-            print(f"recipeid:{job['recipeid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']}")
+            allrecipes.append({'recipeid':job['recipeid']['S'], 'bucket':job['bucket']['S'], 'path':job['path']['S'], 'description':job['description']['S'], 'maintainer':job['maintainer']['S']})
+            
+            print(f"recipeid:{job['recipeid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']} | description:{job['description']['S']} | maintainer:{job['maintainer']['S']}")
         self.recipes = allrecipes
+        
+        return response
                   
     def list_jobs(self, limit=10):
         ddb_client = boto3.client('dynamodb')
@@ -175,6 +178,8 @@ class FarOpt(object):
             print(f"jobid:{job['jobid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']}")
         
         self.jobs = alljobs
+        
+        return response
 
     
     def stream_logs(self,start_time=0, skip=0):
