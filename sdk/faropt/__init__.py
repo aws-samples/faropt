@@ -158,9 +158,12 @@ class FarOpt(object):
         
         allrecipes = []
         for job in response['Items']:
-            allrecipes.append({'recipeid':job['recipeid']['S'], 'bucket':job['bucket']['S'], 'path':job['path']['S']})
-            print(f"recipeid:{job['recipeid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']}")
+            allrecipes.append({'recipeid':job['recipeid']['S'], 'bucket':job['bucket']['S'], 'path':job['path']['S'], 'description':job['description']['S'], 'maintainer':job['maintainer']['S']})
+            
+            print(f"recipeid:{job['recipeid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']} | description:{job['description']['S']} | maintainer:{job['maintainer']['S']}")
         self.recipes = allrecipes
+        
+        return response
                   
     def list_jobs(self, limit=10):
         ddb_client = boto3.client('dynamodb')
@@ -175,6 +178,8 @@ class FarOpt(object):
             print(f"jobid:{job['jobid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']}")
         
         self.jobs = alljobs
+        
+        return response
 
     
     def stream_logs(self,start_time=0, skip=0):
