@@ -1,0 +1,788 @@
+Resources:
+  MyVpcF9F0CA6F:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: faropt/MyVpc
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/Resource
+  MyVpcPublicSubnet1SubnetF6608456:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.0.0/18
+      VpcId:
+        Ref: MyVpcF9F0CA6F
+      AvailabilityZone:
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: ""
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: aws-cdk:subnet-name
+          Value: Public
+        - Key: aws-cdk:subnet-type
+          Value: Public
+        - Key: Name
+          Value: faropt/MyVpc/PublicSubnet1
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PublicSubnet1/Subnet
+  MyVpcPublicSubnet1RouteTableC46AB2F4:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: MyVpcF9F0CA6F
+      Tags:
+        - Key: Name
+          Value: faropt/MyVpc/PublicSubnet1
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PublicSubnet1/RouteTable
+  MyVpcPublicSubnet1RouteTableAssociation2ECEE1CB:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: MyVpcPublicSubnet1RouteTableC46AB2F4
+      SubnetId:
+        Ref: MyVpcPublicSubnet1SubnetF6608456
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PublicSubnet1/RouteTableAssociation
+  MyVpcPublicSubnet1DefaultRoute95FDF9EB:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Ref: MyVpcPublicSubnet1RouteTableC46AB2F4
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: MyVpcIGW5C4A4F63
+    DependsOn:
+      - MyVpcVPCGW488ACE0D
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PublicSubnet1/DefaultRoute
+  MyVpcPublicSubnet1EIP096967CB:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      Tags:
+        - Key: Name
+          Value: faropt/MyVpc/PublicSubnet1
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PublicSubnet1/EIP
+  MyVpcPublicSubnet1NATGatewayAD3400C1:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId:
+        Fn::GetAtt:
+          - MyVpcPublicSubnet1EIP096967CB
+          - AllocationId
+      SubnetId:
+        Ref: MyVpcPublicSubnet1SubnetF6608456
+      Tags:
+        - Key: Name
+          Value: faropt/MyVpc/PublicSubnet1
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PublicSubnet1/NATGateway
+  MyVpcPublicSubnet2Subnet492B6BFB:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.64.0/18
+      VpcId:
+        Ref: MyVpcF9F0CA6F
+      AvailabilityZone:
+        Fn::Select:
+          - 1
+          - Fn::GetAZs: ""
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: aws-cdk:subnet-name
+          Value: Public
+        - Key: aws-cdk:subnet-type
+          Value: Public
+        - Key: Name
+          Value: faropt/MyVpc/PublicSubnet2
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PublicSubnet2/Subnet
+  MyVpcPublicSubnet2RouteTable1DF17386:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: MyVpcF9F0CA6F
+      Tags:
+        - Key: Name
+          Value: faropt/MyVpc/PublicSubnet2
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PublicSubnet2/RouteTable
+  MyVpcPublicSubnet2RouteTableAssociation227DE78D:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: MyVpcPublicSubnet2RouteTable1DF17386
+      SubnetId:
+        Ref: MyVpcPublicSubnet2Subnet492B6BFB
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PublicSubnet2/RouteTableAssociation
+  MyVpcPublicSubnet2DefaultRoute052936F6:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Ref: MyVpcPublicSubnet2RouteTable1DF17386
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: MyVpcIGW5C4A4F63
+    DependsOn:
+      - MyVpcVPCGW488ACE0D
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PublicSubnet2/DefaultRoute
+  MyVpcPublicSubnet2EIP8CCBA239:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      Tags:
+        - Key: Name
+          Value: faropt/MyVpc/PublicSubnet2
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PublicSubnet2/EIP
+  MyVpcPublicSubnet2NATGateway91BFBEC9:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId:
+        Fn::GetAtt:
+          - MyVpcPublicSubnet2EIP8CCBA239
+          - AllocationId
+      SubnetId:
+        Ref: MyVpcPublicSubnet2Subnet492B6BFB
+      Tags:
+        - Key: Name
+          Value: faropt/MyVpc/PublicSubnet2
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PublicSubnet2/NATGateway
+  MyVpcPrivateSubnet1Subnet5057CF7E:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.128.0/18
+      VpcId:
+        Ref: MyVpcF9F0CA6F
+      AvailabilityZone:
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: ""
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: aws-cdk:subnet-name
+          Value: Private
+        - Key: aws-cdk:subnet-type
+          Value: Private
+        - Key: Name
+          Value: faropt/MyVpc/PrivateSubnet1
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PrivateSubnet1/Subnet
+  MyVpcPrivateSubnet1RouteTable8819E6E2:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: MyVpcF9F0CA6F
+      Tags:
+        - Key: Name
+          Value: faropt/MyVpc/PrivateSubnet1
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PrivateSubnet1/RouteTable
+  MyVpcPrivateSubnet1RouteTableAssociation56D38C7E:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: MyVpcPrivateSubnet1RouteTable8819E6E2
+      SubnetId:
+        Ref: MyVpcPrivateSubnet1Subnet5057CF7E
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PrivateSubnet1/RouteTableAssociation
+  MyVpcPrivateSubnet1DefaultRouteA8CDE2FA:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Ref: MyVpcPrivateSubnet1RouteTable8819E6E2
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId:
+        Ref: MyVpcPublicSubnet1NATGatewayAD3400C1
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PrivateSubnet1/DefaultRoute
+  MyVpcPrivateSubnet2Subnet0040C983:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.192.0/18
+      VpcId:
+        Ref: MyVpcF9F0CA6F
+      AvailabilityZone:
+        Fn::Select:
+          - 1
+          - Fn::GetAZs: ""
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: aws-cdk:subnet-name
+          Value: Private
+        - Key: aws-cdk:subnet-type
+          Value: Private
+        - Key: Name
+          Value: faropt/MyVpc/PrivateSubnet2
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PrivateSubnet2/Subnet
+  MyVpcPrivateSubnet2RouteTableCEDCEECE:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: MyVpcF9F0CA6F
+      Tags:
+        - Key: Name
+          Value: faropt/MyVpc/PrivateSubnet2
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PrivateSubnet2/RouteTable
+  MyVpcPrivateSubnet2RouteTableAssociation86A610DA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: MyVpcPrivateSubnet2RouteTableCEDCEECE
+      SubnetId:
+        Ref: MyVpcPrivateSubnet2Subnet0040C983
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PrivateSubnet2/RouteTableAssociation
+  MyVpcPrivateSubnet2DefaultRoute9CE96294:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Ref: MyVpcPrivateSubnet2RouteTableCEDCEECE
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId:
+        Ref: MyVpcPublicSubnet2NATGateway91BFBEC9
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/PrivateSubnet2/DefaultRoute
+  MyVpcIGW5C4A4F63:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: faropt/MyVpc
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/IGW
+  MyVpcVPCGW488ACE0D:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: MyVpcF9F0CA6F
+      InternetGatewayId:
+        Ref: MyVpcIGW5C4A4F63
+    Metadata:
+      aws:cdk:path: faropt/MyVpc/VPCGW
+  faroptlogGroup82758D11:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: faroptlogGroup
+      RetentionInDays: 731
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: faropt/faroptlogGroup/Resource
+  ECSExecutionRoleA044C6CA:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+        Version: "2012-10-17"
+    Metadata:
+      aws:cdk:path: faropt/ECSExecutionRole/Resource
+  ECSExecutionRoleDefaultPolicy91A8E3CE:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - ecr:BatchCheckLayerAvailability
+              - ecr:GetDownloadUrlForLayer
+              - ecr:BatchGetImage
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ""
+                - - "arn:"
+                  - Ref: AWS::Partition
+                  - ":ecr:"
+                  - Ref: AWS::Region
+                  - ":"
+                  - Ref: AWS::AccountId
+                  - :repository/aws-cdk/assets
+          - Action: ecr:GetAuthorizationToken
+            Effect: Allow
+            Resource: "*"
+          - Action:
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Effect: Allow
+            Resource:
+              Fn::GetAtt:
+                - faroptlogGroup82758D11
+                - Arn
+        Version: "2012-10-17"
+      PolicyName: ECSExecutionRoleDefaultPolicy91A8E3CE
+      Roles:
+        - Ref: ECSExecutionRoleA044C6CA
+    Metadata:
+      aws:cdk:path: faropt/ECSExecutionRole/DefaultPolicy/Resource
+  ECSExecutionPolicy30B4C38F:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - ecr:BatchCheckLayerAvailability
+              - ecr:GetDownloadUrlForLayer
+              - ecr:BatchGetImage
+              - ecr:GetAuthorizationToken
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+              - sagemaker:*
+              - s3:*
+              - cloudwatch:PutMetricData
+            Effect: Allow
+            Resource: "*"
+        Version: "2012-10-17"
+      PolicyName: ECSExecutionPolicy
+      Roles:
+        - Ref: ECSExecutionRoleA044C6CA
+    Metadata:
+      aws:cdk:path: faropt/ECSExecutionPolicy/Resource
+  FarOptCluster5E6855FD:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: FarOptCluster
+    Metadata:
+      aws:cdk:path: faropt/FarOptCluster/Resource
+  FarOptClusterDefaultServiceDiscoveryNamespace4D0234E9:
+    Type: AWS::ServiceDiscovery::PrivateDnsNamespace
+    Properties:
+      Name: local-faropt
+      Vpc:
+        Ref: MyVpcF9F0CA6F
+    Metadata:
+      aws:cdk:path: faropt/FarOptCluster/DefaultServiceDiscoveryNamespace/Resource
+  s3bucketFBFA637E:
+    Type: AWS::S3::Bucket
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: faropt/s3bucket/Resource
+  s3bucketNotifications7E3FF01B:
+    Type: Custom::S3BucketNotifications
+    Properties:
+      ServiceToken:
+        Fn::GetAtt:
+          - BucketNotificationsHandler050a0587b7544547bf325f094a3db8347ECC3691
+          - Arn
+      BucketName:
+        Ref: s3bucketFBFA637E
+      NotificationConfiguration:
+        LambdaFunctionConfigurations:
+          - Events:
+              - s3:ObjectCreated:*
+            LambdaFunctionArn:
+              Fn::GetAtt:
+                - lambdafunction45C982D3
+                - Arn
+    DependsOn:
+      - lambdafunctionAllowBucketNotificationsFromfaropts3bucket9A5DDA68CA498F12
+    Metadata:
+      aws:cdk:path: faropt/s3bucket/Notifications/Resource
+  FaroptJobTable149A8B97:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+        - AttributeName: jobid
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: jobid
+          AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      TableName: FaroptJobTable
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: faropt/FaroptJobTable/Resource
+  FaroptRecipeTable80E59E42:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+        - AttributeName: recipeid
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: recipeid
+          AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      TableName: FaroptRecipeTable
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: faropt/FaroptRecipeTable/Resource
+  taskDefinitionScheduler2F1AF045:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+        - Cpu: 4096
+          Environment:
+            - Name: s3bucket
+              Value:
+                Ref: s3bucketFBFA637E
+          Essential: true
+          Image:
+            Fn::Join:
+              - ""
+              - - Ref: AWS::AccountId
+                - .dkr.ecr.
+                - Ref: AWS::Region
+                - "."
+                - Ref: AWS::URLSuffix
+                - /aws-cdk/assets:b73eb903d24a8e95dd8d93b1c864db113e55df3713a6d2589dca0b4ddcb837cb
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group:
+                Ref: faroptlogGroup82758D11
+              awslogs-stream-prefix: faroptlogs
+              awslogs-region:
+                Ref: AWS::Region
+          Memory: 8192
+          MemoryReservation: 8192
+          Name: FarOptImage
+      Cpu: "4096"
+      ExecutionRoleArn:
+        Fn::GetAtt:
+          - ECSExecutionRoleA044C6CA
+          - Arn
+      Family: Faropt-Scheduler
+      Memory: "8192"
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      TaskRoleArn:
+        Fn::GetAtt:
+          - ECSExecutionRoleA044C6CA
+          - Arn
+    Metadata:
+      aws:cdk:path: faropt/taskDefinitionScheduler/Resource
+  lambdafunctionServiceRole85538ADB:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: faropt/lambda_function/ServiceRole/Resource
+  lambdafunctionServiceRoleDefaultPolicyC6E2CA6E:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - ecs:RunTask
+              - ecs:PutAccountSetting
+              - s3:*
+              - iam:PassRole
+            Effect: Allow
+            Resource: "*"
+        Version: "2012-10-17"
+      PolicyName: lambdafunctionServiceRoleDefaultPolicyC6E2CA6E
+      Roles:
+        - Ref: lambdafunctionServiceRole85538ADB
+    Metadata:
+      aws:cdk:path: faropt/lambda_function/ServiceRole/DefaultPolicy/Resource
+  lambdafunction45C982D3:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParameters4b6bf88ce4fd3e5943d206b3300f8d5846e09675d09aae093934d92df866158cS3Bucket3DA82515
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters4b6bf88ce4fd3e5943d206b3300f8d5846e09675d09aae093934d92df866158cS3VersionKeyA5530601
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters4b6bf88ce4fd3e5943d206b3300f8d5846e09675d09aae093934d92df866158cS3VersionKeyA5530601
+      Handler: lambda-handler.main
+      Role:
+        Fn::GetAtt:
+          - lambdafunctionServiceRole85538ADB
+          - Arn
+      Runtime: python3.7
+      Environment:
+        Variables:
+          cluster_name:
+            Ref: FarOptCluster5E6855FD
+          launch_type: FARGATE
+          task_definition: faropt/taskDefinitionScheduler
+          task_family: Faropt-Scheduler
+          subnet1:
+            Ref: MyVpcPrivateSubnet1Subnet5057CF7E
+          subnet2:
+            Ref: MyVpcPrivateSubnet2Subnet0040C983
+          bucket:
+            Ref: s3bucketFBFA637E
+    DependsOn:
+      - lambdafunctionServiceRoleDefaultPolicyC6E2CA6E
+      - lambdafunctionServiceRole85538ADB
+    Metadata:
+      aws:cdk:path: faropt/lambda_function/Resource
+      aws:asset:path: asset.4b6bf88ce4fd3e5943d206b3300f8d5846e09675d09aae093934d92df866158c
+      aws:asset:property: Code
+  lambdafunctionAllowBucketNotificationsFromfaropts3bucket9A5DDA68CA498F12:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - lambdafunction45C982D3
+          - Arn
+      Principal: s3.amazonaws.com
+      SourceAccount:
+        Ref: AWS::AccountId
+      SourceArn:
+        Fn::GetAtt:
+          - s3bucketFBFA637E
+          - Arn
+    Metadata:
+      aws:cdk:path: faropt/lambda_function/AllowBucketNotificationsFromfaropts3bucket9A5DDA68
+  BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: faropt/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource
+  BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action: s3:PutBucketNotification
+            Effect: Allow
+            Resource: "*"
+        Version: "2012-10-17"
+      PolicyName: BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36
+      Roles:
+        - Ref: BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC
+    Metadata:
+      aws:cdk:path: faropt/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource
+  BucketNotificationsHandler050a0587b7544547bf325f094a3db8347ECC3691:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description: AWS CloudFormation handler for "Custom::S3BucketNotifications" resources (@aws-cdk/aws-s3)
+      Code:
+        ZipFile: >-
+          exports.handler = (event, context) => {
+              // eslint-disable-next-line @typescript-eslint/no-require-imports, import/no-extraneous-dependencies
+              const s3 = new (require('aws-sdk').S3)();
+              // eslint-disable-next-line @typescript-eslint/no-require-imports
+              const https = require('https');
+              // eslint-disable-next-line @typescript-eslint/no-require-imports
+              const url = require('url');
+              log(JSON.stringify(event, undefined, 2));
+              const props = event.ResourceProperties;
+              if (event.RequestType === 'Delete') {
+                  props.NotificationConfiguration = {}; // this is how you clean out notifications
+              }
+              const req = {
+                  Bucket: props.BucketName,
+                  NotificationConfiguration: props.NotificationConfiguration,
+              };
+              return s3.putBucketNotificationConfiguration(req, (err, data) => {
+                  log({ err, data });
+                  if (err) {
+                      return submitResponse('FAILED', err.message + `\nMore information in CloudWatch Log Stream: ${context.logStreamName}`);
+                  }
+                  else {
+                      return submitResponse('SUCCESS');
+                  }
+              });
+              function log(obj) {
+                  console.error(event.RequestId, event.StackId, event.LogicalResourceId, obj);
+              }
+              // eslint-disable-next-line max-len
+              // adapted from https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-lambda-function-code.html#cfn-lambda-function-code-cfnresponsemodule
+              // to allow sending an error messge as a reason.
+              function submitResponse(responseStatus, reason) {
+                  const responseBody = JSON.stringify({
+                      Status: responseStatus,
+                      Reason: reason || 'See the details in CloudWatch Log Stream: ' + context.logStreamName,
+                      PhysicalResourceId: event.PhysicalResourceId || event.LogicalResourceId,
+                      StackId: event.StackId,
+                      RequestId: event.RequestId,
+                      LogicalResourceId: event.LogicalResourceId,
+                      NoEcho: false,
+                  });
+                  log({ responseBody });
+                  const parsedUrl = url.parse(event.ResponseURL);
+                  const options = {
+                      hostname: parsedUrl.hostname,
+                      port: 443,
+                      path: parsedUrl.path,
+                      method: 'PUT',
+                      headers: {
+                          'content-type': '',
+                          'content-length': responseBody.length,
+                      },
+                  };
+                  const request = https.request(options, (r) => {
+                      log({ statusCode: r.statusCode, statusMessage: r.statusMessage });
+                      context.done();
+                  });
+                  request.on('error', (error) => {
+                      log({ sendError: error });
+                      context.done();
+                  });
+                  request.write(responseBody);
+                  request.end();
+              }
+          };
+      Handler: index.handler
+      Role:
+        Fn::GetAtt:
+          - BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC
+          - Arn
+      Runtime: nodejs10.x
+      Timeout: 300
+    DependsOn:
+      - BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36
+      - BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC
+    Metadata:
+      aws:cdk:path: faropt/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Modules: aws-cdk=1.74.0,@aws-cdk/assets=1.56.0,@aws-cdk/aws-apigateway=1.56.0,@aws-cdk/aws-applicationautoscaling=1.56.0,@aws-cdk/aws-autoscaling=1.56.0,@aws-cdk/aws-autoscaling-common=1.56.0,@aws-cdk/aws-autoscaling-hooktargets=1.56.0,@aws-cdk/aws-certificatemanager=1.56.0,@aws-cdk/aws-cloudformation=1.56.0,@aws-cdk/aws-cloudfront=1.56.0,@aws-cdk/aws-cloudwatch=1.56.0,@aws-cdk/aws-codeguruprofiler=1.56.0,@aws-cdk/aws-cognito=1.56.0,@aws-cdk/aws-dynamodb=1.56.0,@aws-cdk/aws-ec2=1.56.0,@aws-cdk/aws-ecr=1.56.0,@aws-cdk/aws-ecr-assets=1.56.0,@aws-cdk/aws-ecs=1.56.0,@aws-cdk/aws-efs=1.56.0,@aws-cdk/aws-elasticloadbalancing=1.56.0,@aws-cdk/aws-elasticloadbalancingv2=1.56.0,@aws-cdk/aws-events=1.56.0,@aws-cdk/aws-iam=1.56.0,@aws-cdk/aws-kms=1.56.0,@aws-cdk/aws-lambda=1.56.0,@aws-cdk/aws-logs=1.56.0,@aws-cdk/aws-route53=1.56.0,@aws-cdk/aws-route53-targets=1.56.0,@aws-cdk/aws-s3=1.56.0,@aws-cdk/aws-s3-assets=1.56.0,@aws-cdk/aws-s3-notifications=1.56.0,@aws-cdk/aws-sam=1.56.0,@aws-cdk/aws-secretsmanager=1.56.0,@aws-cdk/aws-servicediscovery=1.56.0,@aws-cdk/aws-sns=1.56.0,@aws-cdk/aws-sns-subscriptions=1.56.0,@aws-cdk/aws-sqs=1.56.0,@aws-cdk/aws-ssm=1.56.0,@aws-cdk/cloud-assembly-schema=1.56.0,@aws-cdk/core=1.56.0,@aws-cdk/custom-resources=1.56.0,@aws-cdk/cx-api=1.56.0,@aws-cdk/region-info=1.56.0,jsii-runtime=Python/3.6.11
+    Condition: CDKMetadataAvailable
+Parameters:
+  AssetParameters4b6bf88ce4fd3e5943d206b3300f8d5846e09675d09aae093934d92df866158cS3Bucket3DA82515:
+    Type: String
+    Description: S3 bucket for asset "4b6bf88ce4fd3e5943d206b3300f8d5846e09675d09aae093934d92df866158c"
+  AssetParameters4b6bf88ce4fd3e5943d206b3300f8d5846e09675d09aae093934d92df866158cS3VersionKeyA5530601:
+    Type: String
+    Description: S3 key for asset version "4b6bf88ce4fd3e5943d206b3300f8d5846e09675d09aae093934d92df866158c"
+  AssetParameters4b6bf88ce4fd3e5943d206b3300f8d5846e09675d09aae093934d92df866158cArtifactHash49090DF4:
+    Type: String
+    Description: Artifact hash for asset "4b6bf88ce4fd3e5943d206b3300f8d5846e09675d09aae093934d92df866158c"
+Outputs:
+  s3output:
+    Value:
+      Ref: s3bucketFBFA637E
+    Export:
+      Name: bucket
+  jobtable:
+    Value:
+      Ref: FaroptJobTable149A8B97
+    Export:
+      Name: jobtable
+  recipetable:
+    Value:
+      Ref: FaroptRecipeTable80E59E42
+    Export:
+      Name: recipetable
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-2
+

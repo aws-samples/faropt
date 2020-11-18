@@ -61,9 +61,10 @@ class FarOpt(object):
         if self.configured:
             self.ddb_resource = boto3.resource('dynamodb')
             self.ddb_table = self.ddb_resource.Table(self.recipetable)
-            
+            UID = str(uuid4())
             job = {
-                'recipeid': recipe_name,
+                'recipeid': UID,
+                'description':recipe_name,
                 'bucket': self.bucket,
                 'path': self.jobname+'/'+self.file_name
             }
@@ -80,7 +81,7 @@ class FarOpt(object):
             s3.download_fileobj(bucket, key, f)
             
         self.path_file_name = os.path.abspath('/tmp/source.zip')
-        self.file_name = '/tmp/source.zip'
+        self.file_name = 'source.zip'
         logging.info("Configured job!")
         self.configured = True
         self.submit()
@@ -100,7 +101,7 @@ class FarOpt(object):
                 s3.download_fileobj(bucket, path, f)
             
             self.path_file_name = os.path.abspath('/tmp/source.zip')
-            self.file_name = '/tmp/source.zip'
+            self.file_name = 'source.zip'
             logging.info("Configured job!")
             self.configured = True
             self.submit()
