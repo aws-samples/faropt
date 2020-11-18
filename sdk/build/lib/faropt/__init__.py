@@ -57,7 +57,7 @@ class FarOpt(object):
         self.configured = True
         logging.info("Configured job!")
         
-    def add_recipe(self,recipe_name):
+    def add_recipe(self,recipe_name,maintainer='Faropt SDK user'):
         if self.configured:
             self.ddb_resource = boto3.resource('dynamodb')
             self.ddb_table = self.ddb_resource.Table(self.recipetable)
@@ -66,7 +66,8 @@ class FarOpt(object):
                 'recipeid': UID,
                 'description':recipe_name,
                 'bucket': self.bucket,
-                'path': self.jobname+'/'+self.file_name
+                'path': self.jobname+'/'+self.file_name,
+                'maintainer':maintainer
             }
                 
             self.ddb_table.put_item(Item=job)

@@ -128,7 +128,7 @@ class FarOpt(object):
             
             try:
                 eventid = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')+'-'+str(uuid4())
-                response = s3_client.upload_file(self.path_file_name, self.bucket,eventid+'/'+self.file_name)
+                response = s3_client.upload_file(self.path_file_name, self.bucket,eventid+'/source.zip')
                 
                 logging.info("Submitted job! id: " + str(eventid))
 
@@ -138,7 +138,7 @@ class FarOpt(object):
                 job = {
                 'jobid': self.jobname,
                 'bucket': self.bucket,
-                'path': eventid+'/'+self.file_name}
+                'path': eventid+'/source.zip'}
                 
                 self.ddb_table.put_item(Item=job)
                 
