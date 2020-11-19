@@ -172,7 +172,7 @@ class FarOpt(object):
                 print(f"recipeid:{job['recipeid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']} | description:{job['description']['S']} | maintainer:{job['maintainer']['S']}")
         self.recipes = allrecipes
         
-#         return response
+        return response
                   
     def list_jobs(self, limit=10, verbose=True):
         ddb_client = boto3.client('dynamodb')
@@ -189,7 +189,7 @@ class FarOpt(object):
         
         self.jobs = alljobs
         
-#         return response
+        return response
 
     
     def stream_logs(self,start_time=0, skip=0):

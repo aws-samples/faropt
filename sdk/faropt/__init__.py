@@ -67,7 +67,8 @@ class FarOpt(object):
                 'description':recipe_name,
                 'bucket': self.bucket,
                 'path': self.jobname+'/'+self.file_name,
-                'maintainer':maintainer
+                'maintainer':maintainer,
+                'code':'see path'
             }
                 
             self.ddb_table.put_item(Item=job)
@@ -167,7 +168,7 @@ class FarOpt(object):
         
         allrecipes = []
         for job in response['Items']:
-            allrecipes.append({'recipeid':job['recipeid']['S'], 'bucket':job['bucket']['S'], 'path':job['path']['S'], 'description':job['description']['S'], 'maintainer':job['maintainer']['S']})
+            allrecipes.append({'recipeid':job['recipeid']['S'], 'bucket':job['bucket']['S'], 'path':job['path']['S'], 'description':job['description']['S'], 'maintainer':job['maintainer']['S'], 'code':job['code']['S']})
             if verbose:
                 print(f"recipeid:{job['recipeid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']} | description:{job['description']['S']} | maintainer:{job['maintainer']['S']}")
         self.recipes = allrecipes
