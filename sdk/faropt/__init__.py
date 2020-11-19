@@ -3,7 +3,7 @@ from botocore.exceptions import ClientError
 import logging
 import os
 import zipfile
-from datetime import datetime
+from datetime import datetime, timedelta
 from uuid import uuid4
 import time
 
@@ -87,12 +87,19 @@ class FarOpt(object):
         self.configured = True
         self.submit()
         
-    def run_recipe(self, recipe_name):
+    def get_recipe_id_from_description(self, description):
+        self.list_recipes(verbose=False)
+        for r in self.recipes:
+            if r['description'] == description:
+                return r['recipeid']
+        
+        
+    def run_recipe(self, recipe_id):
         try:
             self.ddb_resource = boto3.resource('dynamodb')
             self.ddb_table = self.ddb_resource.Table(self.recipetable)
 
-            response = self.ddb_table.get_item(Key={'recipeid': recipe_name})
+            response = self.ddb_table.get_item(Key={'recipeid': recipe_id})
             path = response['Item']['path']
             bucket = response['Item']['bucket']
             
@@ -151,7 +158,7 @@ class FarOpt(object):
             
         self.submitted = True
     
-    def list_recipes(self, limit=10):
+    def list_recipes(self, limit=10, verbose=True):
         ddb_client = boto3.client('dynamodb')
         
         response = ddb_client.scan(
@@ -161,13 +168,13 @@ class FarOpt(object):
         allrecipes = []
         for job in response['Items']:
             allrecipes.append({'recipeid':job['recipeid']['S'], 'bucket':job['bucket']['S'], 'path':job['path']['S'], 'description':job['description']['S'], 'maintainer':job['maintainer']['S']})
-            
-            print(f"recipeid:{job['recipeid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']} | description:{job['description']['S']} | maintainer:{job['maintainer']['S']}")
+            if verbose:
+                print(f"recipeid:{job['recipeid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']} | description:{job['description']['S']} | maintainer:{job['maintainer']['S']}")
         self.recipes = allrecipes
         
-        return response
+#         return response
                   
-    def list_jobs(self, limit=10):
+    def list_jobs(self, limit=10, verbose=True):
         ddb_client = boto3.client('dynamodb')
         
         response = ddb_client.scan(
@@ -177,11 +184,12 @@ class FarOpt(object):
         alljobs = []
         for job in response['Items']:
             alljobs.append({'jobid':job['jobid']['S'], 'bucket':job['bucket']['S'], 'path':job['path']['S']})
-            print(f"jobid:{job['jobid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']}")
+            if verbose:
+                print(f"jobid:{job['jobid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']}")
         
         self.jobs = alljobs
         
-        return response
+#         return response
 
     
     def stream_logs(self,start_time=0, skip=0):
@@ -283,3 +291,21 @@ class FarOpt(object):
                         
         else:
             logging.error("Please submit a job first!")
+                      
+    def get_metric_data(self,metric_name):
+
+        cloudwatch = boto3.resource('cloudwatch')
+        metric = cloudwatch.Metric('FarOpt',metric_name)
+
+        response = metric.get_statistics(
+        Dimensions=[
+            {
+                'Name': 'jobid',
+                'Value': self.jobname
+            },
+        ],
+        StartTime=datetime.now() - timedelta(minutes=24),
+        EndTime=datetime.now(),
+        Period=1,Statistics=['Average','Minimum','Maximum'])
+
+        return response
