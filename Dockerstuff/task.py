@@ -8,13 +8,18 @@ print("---------------------------------------------------------------")
 print('Downloading source')
 
 print('Looking for source.zip in ',os.environ['s3bucket'],'/',os.environ['s3key'])
-
+print('Note:')
+print('s3bucket : ', os.environ['s3bucket'])
+print('s3key : ', os.environ['s3key'])
 
 
 s3 = boto3.client('s3')
-s3.download_file(os.environ['s3bucket'], os.environ['s3key']+'/source.zip', 'source.zip')
-
-print('Downloaded source.zip, uncompressing')
+try:
+    s3.download_file(os.environ['s3bucket'], os.environ['s3key']+'/source.zip', 'source.zip')
+except:
+    print('Could not download source. Please check :',os.environ['s3bucket'],'/',os.environ['s3key']+'/source.zip')
+    
+print('Downloaded source.zip! uncompressing')
 
 import zipfile
 with zipfile.ZipFile('source.zip', 'r') as zip_ref:
