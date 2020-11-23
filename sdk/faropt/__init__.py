@@ -21,9 +21,26 @@ class FarOpt(object):
                 logging.info('FarOpt backend is ready!')
                 self.ready = True
                 self.stackname = stackname
-                self.bucket = response['Stacks'][0]['Outputs'][0]['OutputValue'] # S3 bucket
-                self.jobtable = response['Stacks'][0]['Outputs'][2]['OutputValue'] # DynamoDB table for jobs
-                self.recipetable = response['Stacks'][0]['Outputs'][1]['OutputValue'] # DynamoDB table for recipes
+                
+                outputs = response['Stacks'][0]['Outputs']
+                for output in outputs:
+                    
+                    if output['OutputKey']=='s3asyncoutput':
+                        self.asyncbucket = output['OutputValue']
+                        logging.info('Async Bucket: ' + self.asyncbucket)
+                    
+                    if output['OutputKey']=='s3output':
+                        self.bucket = output['OutputValue']
+                        logging.info('Bucket: ' + self.bucket)
+                    
+                    if output['OutputKey']=='recipetable':
+                        self.recipetable = output['OutputValue']
+                        logging.info('Recipe Table: ' + self.recipetable)
+                    
+                    if output['OutputKey']=='jobtable':
+                        self.jobtable = output['OutputValue']
+                        logging.info('Job table: ' + self.jobtable)
+                
                 self.configured = False
                 self.submitted = False
         except Exception as e:

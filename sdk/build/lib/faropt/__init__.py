@@ -21,9 +21,22 @@ class FarOpt(object):
                 logging.info('FarOpt backend is ready!')
                 self.ready = True
                 self.stackname = stackname
-                self.bucket = response['Stacks'][0]['Outputs'][0]['OutputValue'] # S3 bucket
-                self.jobtable = response['Stacks'][0]['Outputs'][2]['OutputValue'] # DynamoDB table for jobs
-                self.recipetable = response['Stacks'][0]['Outputs'][1]['OutputValue'] # DynamoDB table for recipes
+                
+                outputs = response['Stacks'][0]['Outputs']
+                for output in outputs:
+                    
+                    if output['OutputKey']=='s3asyncoutput':
+                        self.asyncbucket = output['OutputValue']
+                    
+                    if output['OutputKey']=='s3output':
+                        self.bucket = output['OutputValue']
+                    
+                    if output['OutputKey']=='recipetable':
+                        self.recipetable = output['OutputValue']
+                    
+                    if output['OutputKey']=='jobtable':
+                        self.jobtable = output['OutputValue']
+                
                 self.configured = False
                 self.submitted = False
         except Exception as e:
@@ -67,7 +80,8 @@ class FarOpt(object):
                 'description':recipe_name,
                 'bucket': self.bucket,
                 'path': self.jobname+'/'+self.file_name,
-                'maintainer':maintainer
+                'maintainer':maintainer,
+                'code':'see path'
             }
                 
             self.ddb_table.put_item(Item=job)
@@ -167,7 +181,7 @@ class FarOpt(object):
         
         allrecipes = []
         for job in response['Items']:
-            allrecipes.append({'recipeid':job['recipeid']['S'], 'bucket':job['bucket']['S'], 'path':job['path']['S'], 'description':job['description']['S'], 'maintainer':job['maintainer']['S']})
+            allrecipes.append({'recipeid':job['recipeid']['S'], 'bucket':job['bucket']['S'], 'path':job['path']['S'], 'description':job['description']['S'], 'maintainer':job['maintainer']['S'], 'code':job['code']['S']})
             if verbose:
                 print(f"recipeid:{job['recipeid']['S']} | bucket:{job['bucket']['S']} | path:{job['path']['S']} | description:{job['description']['S']} | maintainer:{job['maintainer']['S']}")
         self.recipes = allrecipes

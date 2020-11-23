@@ -71,6 +71,7 @@ class FaroptStack(core.Stack):
         # create s3 bucket
         
         s3 = _s3.Bucket(self, "s3bucket")
+        s3async = _s3.Bucket(self, "s3async")
         
         # 
         pkey1 = ddb.Attribute(name='jobid', type=ddb.AttributeType.STRING)
@@ -126,3 +127,4 @@ class FaroptStack(core.Stack):
         core.CfnOutput(self, 's3output', value=s3.bucket_name, export_name='bucket')
         core.CfnOutput(self, 'jobtable', value=jobtable.table_name, export_name='jobtable')
         core.CfnOutput(self, 'recipetable', value=recipetable.table_name, export_name='recipetable')
+        core.CfnOutput(self, 's3asyncoutput', value=s3async.bucket_name, export_name='asyncbucket')
