@@ -13,9 +13,8 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 extras = {
-    'ortools': [
-        'ortools'
-    ]
+    'async':[
+        'scikit-optimize']
 }
 
 setup(name='faropt',
