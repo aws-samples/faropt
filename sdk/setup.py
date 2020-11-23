@@ -17,14 +17,15 @@ extras = {
         'scikit-optimize']
 }
 
+
 setup(name='faropt',
-      version='0.2.8',
+      version='0.2.9',
       description='Fargate based Numerical Optimization Template',
       url='https://github.com/aws-samples/faropt',
       author='Shreyas Subramanian',
       author_email='subshrey@amazon.com',
       license='MIT',
-      packages=['faropt'],
+      packages=find_packages(),
       #package_data={'ezsmdeploy': ['data/*']},
       extras_require = extras,
       install_requires=["boto3"],
