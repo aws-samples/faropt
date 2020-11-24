@@ -11,8 +11,15 @@ logging.basicConfig(level=logging.INFO)
 
 
 class FarOpt(object):
+    """FarOpt class used to initialize, configure and submit jobs to the back end
+    :param framework: Currently only ortools, TO DO is to extend to other frameworks. Note that other frameworks like pyomo, DEAP, inspyred and pulp are supported
+    :type framework: string, optional
+    :param stackname: Points to the backend CDK stack that needs to be launched separately. Default name is faropt, but you many need to pass in another name while testing
+    :type stackname: string, optional 
+    """
     def __init__(self, framework = 'ortools', stackname = 'faropt'):
-        
+        """Constructor method: Gets buckets and tables associated with the already launched stack
+        """
         # Check if backend stack is launched
         cf = boto3.client('cloudformation')
         try:
@@ -56,6 +63,11 @@ class FarOpt(object):
             self.framework = framework
     
     def configure (self,source_dir):
+        """Zips up a local folder containing your main.py code, and any other subfolders/files required to run your project. Make note of the output structure printed to see if all files that you need are printed.ArithmeticError
+        
+        param source_dir: path to your source, such as './home/src/'
+        type source_dir: string
+        """
         logging.info("Listing project files ...")
         file_name = "source.zip"
         zf = zipfile.ZipFile("source.zip", "w")
@@ -75,6 +87,13 @@ class FarOpt(object):
         logging.info("Configured job!")
         
     def add_recipe(self,recipe_name,maintainer='Faropt SDK user'):
+        """Adds a recipe referencing the job that you submitted (see self object params). 
+        
+        param recipe_name: Friendly name for your recipe
+        type recipe_name: string
+        param maintainer: Recipe author/maintainer
+        type source_dir: string, optional. Defaults to 'Faropt SDK User'
+        """
         if self.configured:
             self.ddb_resource = boto3.resource('dynamodb')
             self.ddb_table = self.ddb_resource.Table(self.recipetable)
@@ -94,6 +113,14 @@ class FarOpt(object):
             logging.error('Please configure the job first!')
             
     def run_s3_job(self, bucket, key):
+        """Runs job based on a source file in bucket/key. For example, place a source.zip in s3://bucket/key/source.zip and submit a job
+        
+        param bucket: Bucket name
+        type bucket: string
+        param key: path/key on S3 that looks like path/to/s3/key/source.zip inside the bucket
+        type key: string
+        """
+        
         logging.info("Downloading source...")
         s3 = boto3.client('s3')
         with open('/tmp/source.zip', 'wb') as f:
@@ -106,6 +133,13 @@ class FarOpt(object):
         self.submit()
         
     def get_recipe_id_from_description(self, description):
+        """Returns UUID of a recipe based on friendly description/ recipe name
+        
+        param description: friendly description/ recipe name
+        type description: string
+        :return: First UUID that matches the description of the recipe
+        :rtype: uuid4()
+        """
         self.list_recipes(verbose=False)
         for r in self.recipes:
             if r['description'] == description:
@@ -113,6 +147,11 @@ class FarOpt(object):
         
         
     def run_recipe(self, recipe_id):
+        """Runs already registered recipe
+        
+        param recipe_id: UUID of recipe
+        type recipe_id: string
+        """
         try:
             self.ddb_resource = boto3.resource('dynamodb')
             self.ddb_table = self.ddb_resource.Table(self.recipetable)
@@ -138,6 +177,11 @@ class FarOpt(object):
         
         
     def wait(self):
+        """Polls for the primary status of the container task that runs this job. You should see PROVISIONING > PENDING > RUNNING > STOPPED > JOB COMPLETED
+
+        :return: primary status of the job that was submitted
+        :rtype: list
+        """
         while self.primary_status()!='STOPPED':
             print(self.primary_status())
             time.sleep(3)
@@ -145,6 +189,8 @@ class FarOpt(object):
         logging.info("JOB COMPLETED!")
         
     def submit(self):
+        """Runs job defined in object params. Creates a new job ID to track and sets submitted to True. Check self.jobname to reference the job that was submitted. View self.logs() once the job has completed
+        """
         if self.configured :
             logging.info("Submitting job")
             s3_client = boto3.client('s3')
@@ -177,6 +223,15 @@ class FarOpt(object):
         self.submitted = True
     
     def list_recipes(self, limit=10, verbose=True):
+        """Returns list of recipes registered
+        
+        param limit: Number of recipes to return, Defaults to 10
+        type limit: int, optional
+        param verbose: Verbose print of the recipe table, Defaults to True
+        type verbose: bool, optional
+        :return: Recipe table scan (raw) results
+        :rtype: boto3 response
+        """
         ddb_client = boto3.client('dynamodb')
         
         response = ddb_client.scan(
@@ -193,6 +248,15 @@ class FarOpt(object):
         return response
                   
     def list_jobs(self, limit=10, verbose=True):
+        """Returns list of jobs submitted
+        
+        param limit: Number of jobs to return, Defaults to 10
+        type limit: int, optional
+        param verbose: Verbose print of the job table, Defaults to True
+        type verbose: bool, optional
+        :return: job table scan (raw) results
+        :rtype: boto3 response
+        """
         ddb_client = boto3.client('dynamodb')
         
         response = ddb_client.scan(
@@ -211,6 +275,8 @@ class FarOpt(object):
 
     
     def stream_logs(self,start_time=0, skip=0):
+        """Internal, use self.logs() instead of streaming
+        """
         #def log_stream(client, log_group, stream_name, start_time=0, skip=0): from SM stream logs
 
         next_token = None
@@ -247,6 +313,8 @@ class FarOpt(object):
      
     
     def stop(self):
+        """Stops a submitted task
+        """
         # if self.primary_status() in ['STOPPED','DEPROVISIONING','RUNNING']:
         client = boto3.client('ecs')
         taskarn = self.status()['tasks'][0]['taskArn'].split('/')[-1]
@@ -265,7 +333,8 @@ class FarOpt(object):
             print(str(ev['timestamp']) + ' | ' + ev['message'])
     
     def logs(self):
-
+        """Prints logs of a submitted job. 
+        """
         if self.primary_status() in ['STOPPED','DEPROVISIONING','RUNNING']:
             taskarn = self.status()['tasks'][0]['taskArn'].split('/')[-1]
             client = boto3.client('logs')
@@ -280,9 +349,15 @@ class FarOpt(object):
                 
                 
     def primary_status(self):
+        """Returns the last status of the submitted job; Can be PROVISIONING > PENDING > RUNNING > STOPPED > JOB COMPLETED 
+        :return: primary staus
+        :rtype: string
+        """
         return self.status()['tasks'][0]['lastStatus']
         
     def status(self):
+        """Returns the full status of the submitted job; used in primary_status, which should be enough for most use cases
+        """
         if self.submitted:
 
             client = boto3.client('ecs')
@@ -311,6 +386,10 @@ class FarOpt(object):
             logging.error("Please submit a job first!")
                       
     def get_metric_data(self,metric_name):
+        """Returns raw metric data that was submitted from the backend. To use this, do from utils import * in your main.py, and then use log_metric like this, for e.g: log_metric('total_distance',total_distance)
+        :return: response from cloudwatch 
+        :rtype: json string
+        """
 
         cloudwatch = boto3.resource('cloudwatch')
         metric = cloudwatch.Metric('FarOpt',metric_name)

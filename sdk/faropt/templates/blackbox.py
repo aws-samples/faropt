@@ -47,12 +47,14 @@ class AsyncOpt(object):
                         self.jobtable = output['OutputValue']
                         logging.info('Job table: ' + self.jobtable)
                 
-
+        
         except Exception as e:
             self.ready = False
             logging.error(e)
             
-    
+        self.modelname = ''
+        
+        
     def update_model(self, modelname, opt):
         with open('/tmp/model.pkl', 'wb') as f:
             pickle.dump(opt, f)
@@ -91,8 +93,14 @@ class AsyncOpt(object):
             logging.error('Input bounds as a list of tuples, like [(-2.0, 2.0), ...]')
         
         
-    def ask_model(self, modelname):
+    def ask_model(self, modelname=''):
         s3_client = boto3.client('s3')
+        if modelname=='' and self.modelname=='':
+            raise ValueError("Please create_model() or pass in a modelname to ask_model()")
+        
+        if modelname!='':
+            self.modelname = modelname
+        
         response = s3_client.download_file(self.asyncbucket,self.modelname+'/model.pkl','/tmp/model.pkl')
         
         with open('/tmp/model.pkl', 'rb') as f:
@@ -105,8 +113,15 @@ class AsyncOpt(object):
         
         
         
-    def tell_model(self, modelname, xval, fval):
+    def tell_model(self, xval, fval, modelname=''):
         s3_client = boto3.client('s3')
+        
+        if modelname=='' and self.modelname=='':
+            raise ValueError("Please create_model() or pass in a modelname to ask_model()")
+        
+        if modelname!='':
+            self.modelname = modelname
+            
         response = s3_client.download_file(self.asyncbucket,self.modelname+'/model.pkl','/tmp/model.pkl')
         
         with open('/tmp/model.pkl', 'rb') as f:
@@ -122,7 +137,7 @@ class AsyncOpt(object):
         bucket = self.asyncbucket
 
         client = boto3.client('s3')
-        result = client.list_objects(Bucket=bucket,Delimiter='/model.pkl')
+        result = client.list_objects(Bucket=bucket,Delimiter='/model.pkl',MaxKeys=100)
         for o in result.get('CommonPrefixes'):
             tmpprefix = o.get('Prefix')
             
