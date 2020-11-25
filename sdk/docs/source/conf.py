@@ -15,6 +15,9 @@ import sys
 sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0,os.path.abspath('.'))
 sys.path.insert(0,os.path.abspath('../faropt'))
+
+autodoc_mock_imports = ['boto3']
+
 # -- Project information -----------------------------------------------------
 
 project = 'faropt'
