@@ -350,6 +350,7 @@ class FarOpt(object):
                 
     def primary_status(self):
         """Returns the last status of the submitted job; Can be PROVISIONING > PENDING > RUNNING > STOPPED > JOB COMPLETED 
+        
         :return: primary staus
         :rtype: string
         """
@@ -387,6 +388,7 @@ class FarOpt(object):
                       
     def get_metric_data(self,metric_name):
         """Returns raw metric data that was submitted from the backend. To use this, do from utils import * in your main.py, and then use log_metric like this, for e.g: log_metric('total_distance',total_distance)
+        
         :return: response from cloudwatch 
         :rtype: json string
         """
