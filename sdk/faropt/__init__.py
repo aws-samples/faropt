@@ -65,8 +65,8 @@ class FarOpt(object):
     def configure (self,source_dir):
         """Zips up a local folder containing your main.py code, and any other subfolders/files required to run your project. Make note of the output structure printed to see if all files that you need are printed.ArithmeticError
         
-        param source_dir: path to your source, such as './home/src/'
-        type source_dir: string
+        :param source_dir: path to your source, such as './home/src/'
+        :type source_dir: string
         """
         logging.info("Listing project files ...")
         file_name = "source.zip"
@@ -89,10 +89,10 @@ class FarOpt(object):
     def add_recipe(self,recipe_name,maintainer='Faropt SDK user'):
         """Adds a recipe referencing the job that you submitted (see self object params). 
         
-        param recipe_name: Friendly name for your recipe
-        type recipe_name: string
-        param maintainer: Recipe author/maintainer
-        type source_dir: string, optional. Defaults to 'Faropt SDK User'
+        :param recipe_name: Friendly name for your recipe
+        :type recipe_name: string
+        :param maintainer: Recipe author/maintainer
+        :type source_dir: string, optional. Defaults to 'Faropt SDK User'
         """
         if self.configured:
             self.ddb_resource = boto3.resource('dynamodb')
@@ -115,10 +115,10 @@ class FarOpt(object):
     def run_s3_job(self, bucket, key):
         """Runs job based on a source file in bucket/key. For example, place a source.zip in s3://bucket/key/source.zip and submit a job
         
-        param bucket: Bucket name
-        type bucket: string
-        param key: path/key on S3 that looks like path/to/s3/key/source.zip inside the bucket
-        type key: string
+        :param bucket: Bucket name
+        :type bucket: string
+        :param key: path/key on S3 that looks like path/to/s3/key/source.zip inside the bucket
+        :type key: string
         """
         
         logging.info("Downloading source...")
@@ -135,8 +135,8 @@ class FarOpt(object):
     def get_recipe_id_from_description(self, description):
         """Returns UUID of a recipe based on friendly description/ recipe name
         
-        param description: friendly description/ recipe name
-        type description: string
+        :param description: friendly description/ recipe name
+        :type description: string
         :return: First UUID that matches the description of the recipe
         :rtype: uuid4()
         """
@@ -149,8 +149,8 @@ class FarOpt(object):
     def run_recipe(self, recipe_id):
         """Runs already registered recipe
         
-        param recipe_id: UUID of recipe
-        type recipe_id: string
+        :param recipe_id: UUID of recipe
+        :type recipe_id: string
         """
         try:
             self.ddb_resource = boto3.resource('dynamodb')
@@ -225,10 +225,10 @@ class FarOpt(object):
     def list_recipes(self, limit=10, verbose=True):
         """Returns list of recipes registered
         
-        param limit: Number of recipes to return, Defaults to 10
-        type limit: int, optional
-        param verbose: Verbose print of the recipe table, Defaults to True
-        type verbose: bool, optional
+        :param limit: Number of recipes to return, Defaults to 10
+        :type limit: int, optional
+        :param verbose: Verbose print of the recipe table, Defaults to True
+        :type verbose: bool, optional
         :return: Recipe table scan (raw) results
         :rtype: boto3 response
         """
@@ -250,10 +250,10 @@ class FarOpt(object):
     def list_jobs(self, limit=10, verbose=True):
         """Returns list of jobs submitted
         
-        param limit: Number of jobs to return, Defaults to 10
-        type limit: int, optional
-        param verbose: Verbose print of the job table, Defaults to True
-        type verbose: bool, optional
+        :param limit: Number of jobs to return, Defaults to 10
+        :type limit: int, optional
+        :param verbose: Verbose print of the job table, Defaults to True
+        :type verbose: bool, optional
         :return: job table scan (raw) results
         :rtype: boto3 response
         """

@@ -190,18 +190,32 @@
 <dt id="faropt.FarOpt.add_recipe">
 <code class="descname">add_recipe</code><span class="sig-paren">(</span><em>recipe_name</em>, <em>maintainer='Faropt SDK user'</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.add_recipe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a recipe referencing the job that you submitted (see self object params).</p>
-<p>param recipe_name: Friendly name for your recipe
-type recipe_name: string
-param maintainer: Recipe author/maintainer
-type source_dir: string, optional. Defaults to ‘Faropt SDK User’</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>recipe_name</strong> (<em>string</em>) – Friendly name for your recipe</li>
+<li><strong>maintainer</strong> – Recipe author/maintainer</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="faropt.FarOpt.configure">
 <code class="descname">configure</code><span class="sig-paren">(</span><em>source_dir</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.configure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Zips up a local folder containing your main.py code, and any other subfolders/files required to run your project. Make note of the output structure printed to see if all files that you need are printed.ArithmeticError</p>
-<p>param source_dir: path to your source, such as ‘./home/src/’
-type source_dir: string</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>source_dir</strong> (<em>string</em>) – path to your source, such as ‘./home/src/’</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -216,34 +230,66 @@ type source_dir: string</p>
 <dt id="faropt.FarOpt.get_recipe_id_from_description">
 <code class="descname">get_recipe_id_from_description</code><span class="sig-paren">(</span><em>description</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.get_recipe_id_from_description" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns UUID of a recipe based on friendly description/ recipe name</p>
-<p>param description: friendly description/ recipe name
-type description: string
-:return: First UUID that matches the description of the recipe
-:rtype: uuid4()</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>description</strong> (<em>string</em>) – friendly description/ recipe name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">First UUID that matches the description of the recipe</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">uuid4()</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="faropt.FarOpt.list_jobs">
 <code class="descname">list_jobs</code><span class="sig-paren">(</span><em>limit=10</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.list_jobs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns list of jobs submitted</p>
-<p>param limit: Number of jobs to return, Defaults to 10
-type limit: int, optional
-param verbose: Verbose print of the job table, Defaults to True
-type verbose: bool, optional
-:return: job table scan (raw) results
-:rtype: boto3 response</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>limit</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of jobs to return, Defaults to 10</li>
+<li><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbose print of the job table, Defaults to True</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">job table scan (raw) results</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">boto3 response</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="faropt.FarOpt.list_recipes">
 <code class="descname">list_recipes</code><span class="sig-paren">(</span><em>limit=10</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.list_recipes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns list of recipes registered</p>
-<p>param limit: Number of recipes to return, Defaults to 10
-type limit: int, optional
-param verbose: Verbose print of the recipe table, Defaults to True
-type verbose: bool, optional
-:return: Recipe table scan (raw) results
-:rtype: boto3 response</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>limit</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of recipes to return, Defaults to 10</li>
+<li><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbose print of the recipe table, Defaults to True</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Recipe table scan (raw) results</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">boto3 response</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -269,18 +315,32 @@ type verbose: bool, optional
 <dt id="faropt.FarOpt.run_recipe">
 <code class="descname">run_recipe</code><span class="sig-paren">(</span><em>recipe_id</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.run_recipe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs already registered recipe</p>
-<p>param recipe_id: UUID of recipe
-type recipe_id: string</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>recipe_id</strong> (<em>string</em>) – UUID of recipe</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="faropt.FarOpt.run_s3_job">
 <code class="descname">run_s3_job</code><span class="sig-paren">(</span><em>bucket</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.run_s3_job" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs job based on a source file in bucket/key. For example, place a source.zip in s3://bucket/key/source.zip and submit a job</p>
-<p>param bucket: Bucket name
-type bucket: string
-param key: path/key on S3 that looks like path/to/s3/key/source.zip inside the bucket
-type key: string</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>bucket</strong> (<em>string</em>) – Bucket name</li>
+<li><strong>key</strong> (<em>string</em>) – path/key on S3 that looks like path/to/s3/key/source.zip inside the bucket</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
