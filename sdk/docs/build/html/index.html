@@ -1,35 +1,176 @@
 
+
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to faropt’s documentation! &mdash; faropt Beta documentation</title>
+  
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to faropt’s documentation! &#8212; faropt Beta documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'Beta',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head><body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
           
 
-          <div class="body" role="main">
+          
+            <a href="#" class="icon icon-home"> faropt
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to faropt’s documentation!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#using-the-sdk">Using the SDK</a><ul>
+<li><a class="reference internal" href="#for-a-basic-walkthrough-do">For a basic Walkthrough, do:</a></li>
+<li><a class="reference internal" href="#saving-and-running-a-recipe">Saving and running a recipe</a></li>
+<li><a class="reference internal" href="#for-black-box-optimization-problems">For black box optimization problems:</a></li>
+<li><a class="reference internal" href="#example-code">Example code</a></li>
+<li><a class="reference internal" href="#logs-from-the-back-end">Logs from the back end …</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#back-end-architecture">Back-end architecture</a><ul>
+<li><a class="reference internal" href="#fargate-based-serverless-numerical-optimization">Fargate based serverless Numerical Optimization</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#what-s-coming-up">What’s coming up?</a></li>
+<li><a class="reference internal" href="#how-to-use-this-cdk-project">How to use this CDK project</a><ul>
+<li><a class="reference internal" href="#useful-commands-for-the-back-end-stack">Useful commands for the back end stack</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">faropt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to faropt’s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="welcome-to-faropt-s-documentation">
 <h1>Welcome to faropt’s documentation!<a class="headerlink" href="#welcome-to-faropt-s-documentation" title="Permalink to this headline">¶</a></h1>
@@ -39,73 +180,244 @@
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
+</div>
+<div class="section" id="using-the-sdk">
+<h1>Using the SDK<a class="headerlink" href="#using-the-sdk" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="for-a-basic-walkthrough-do">
+<h2>For a basic Walkthrough, do:<a class="headerlink" href="#for-a-basic-walkthrough-do" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">faropt</span> <span class="kn">import</span> <span class="n">FarOpt</span>
+
+<span class="o">//</span> <span class="n">init</span> <span class="n">a</span> <span class="n">FarOpt</span> <span class="nb">object</span>
+<span class="n">fo</span> <span class="o">=</span> <span class="n">FarOpt</span><span class="p">()</span>
+
+<span class="o">//</span> <span class="n">point</span> <span class="n">to</span> <span class="n">your</span> <span class="n">source</span> <span class="n">code</span><span class="p">,</span> <span class="k">with</span> <span class="n">a</span> <span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="ow">and</span> <span class="nb">any</span> <span class="n">other</span> <span class="n">files</span> <span class="ow">and</span><span class="o">/</span><span class="ow">or</span> <span class="n">subfolders</span>
+<span class="n">fo</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;../project/src/&#39;</span><span class="p">)</span>
+
+<span class="o">//</span> <span class="n">submit</span> <span class="n">the</span> <span class="n">job</span>
+<span class="n">fo</span><span class="o">.</span><span class="n">submit</span><span class="p">()</span>
+
+<span class="o">//</span> <span class="k">print</span> <span class="n">logs</span><span class="p">()</span>
+<span class="n">fo</span><span class="o">.</span><span class="n">logs</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="saving-and-running-a-recipe">
+<h2>Saving and running a recipe<a class="headerlink" href="#saving-and-running-a-recipe" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">add</span> <span class="n">a</span> <span class="n">recipe</span> <span class="n">after</span> <span class="n">submitting</span> <span class="n">a</span> <span class="n">job</span>
+<span class="n">fo</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="n">recipe_name</span><span class="o">=</span><span class="s1">&#39;routing-v1&#39;</span><span class="p">,</span> <span class="n">maintainer</span><span class="o">=</span><span class="s1">&#39;Dexter&#39;</span><span class="p">)</span>
+
+<span class="o">//</span> <span class="n">get</span> <span class="n">unique</span> <span class="n">recipe</span> <span class="n">ID</span>
+<span class="n">r_id</span> <span class="o">=</span> <span class="n">fo</span><span class="o">.</span><span class="n">get_recipe_id_from_description</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;routing-v1&#39;</span><span class="p">)</span>
+
+<span class="o">//</span> <span class="n">run</span> <span class="n">this</span> <span class="n">recipe</span>
+<span class="n">fo</span><span class="o">.</span><span class="n">run_recipe</span><span class="p">(</span><span class="n">r_id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="for-black-box-optimization-problems">
+<h2>For black box optimization problems:<a class="headerlink" href="#for-black-box-optimization-problems" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">faropt.templates.blackbox</span> <span class="kn">import</span> <span class="n">AsyncOpt</span>
+
+<span class="o">//</span> <span class="n">init</span> <span class="n">an</span> <span class="n">AsyncOpt</span> <span class="nb">object</span>
+<span class="n">ao</span> <span class="o">=</span> <span class="n">AsyncOpt</span><span class="p">()</span>
+
+<span class="o">//</span> <span class="nb">list</span> <span class="n">existing</span> <span class="n">models</span>
+<span class="n">ao</span><span class="o">.</span><span class="n">list_models</span><span class="p">()</span>
+
+<span class="o">//</span> <span class="n">create</span> <span class="n">a</span> <span class="n">new</span> <span class="n">model</span>
+<span class="n">ao</span><span class="o">.</span><span class="n">create_model</span><span class="p">(</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span><span class="mf">5.0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)])],</span> <span class="n">model_tag</span> <span class="o">=</span> <span class="s1">&#39;engine1&#39;</span><span class="p">)</span>
+
+<span class="o">//</span> <span class="n">ask</span> <span class="n">optimizer</span> <span class="k">for</span> <span class="n">a</span> <span class="n">new</span> <span class="n">point</span> <span class="n">to</span> <span class="n">evaluate</span>
+<span class="n">ao</span><span class="o">.</span><span class="n">ask_model</span><span class="p">(</span><span class="n">modelname</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span>
+
+<span class="o">//</span> <span class="n">tell</span> <span class="n">the</span> <span class="n">optimizer</span> <span class="n">results</span> <span class="n">of</span> <span class="n">a</span> <span class="n">evaluation</span>
+<span class="n">ao</span><span class="o">.</span><span class="n">tell_model</span><span class="p">(</span><span class="n">xval</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">fval</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">modelname</span><span class="o">=</span> <span class="o">...</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-code">
+<h2>Example code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h2>
+<p>See example code here - <a class="reference external" href="https://github.com/aws-samples/faropt/blob/master/tests/src/main.py">https://github.com/aws-samples/faropt/blob/master/tests/src/main.py</a></p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Capacited Vehicles Routing Problem (CVRP).&quot;&quot;&quot;</span>
+
+<span class="c1"># [START import]</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">ortools.constraint_solver</span> <span class="k">import</span> <span class="n">routing_enums_pb2</span>
+<span class="kn">from</span> <span class="nn">ortools.constraint_solver</span> <span class="k">import</span> <span class="n">pywrapcp</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="k">import</span> <span class="o">*</span>
+<span class="c1"># [END import]</span>
+
+
+<span class="c1"># [START data_model]</span>
+<span class="k">def</span> <span class="nf">create_data_model</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Stores the data for the problem.&quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;distance_matrix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="mi">0</span><span class="p">,</span> <span class="mi">548</span><span class="p">,</span> <span class="mi">776</span><span class="p">,</span> <span class="mi">696</span><span class="p">,</span> <span class="mi">582</span><span class="p">,</span> <span class="mi">274</span><span class="p">,</span> <span class="mi">502</span><span class="p">,</span> <span class="mi">194</span><span class="p">,</span> <span class="mi">308</span><span class="p">,</span> <span class="mi">194</span><span class="p">,</span> <span class="mi">536</span><span class="p">,</span> <span class="mi">502</span><span class="p">,</span> <span class="mi">388</span><span class="p">,</span> <span class="mi">354</span><span class="p">,</span>
+            <span class="mi">468</span><span class="p">,</span> <span class="mi">776</span><span class="p">,</span> <span class="mi">662</span>
+        <span class="p">],</span>
+
+    <span class="o">//.</span>
+    <span class="o">//.</span>
+    <span class="o">//.</span>
+    <span class="o">//.</span>
+    <span class="o">//.</span>
+
+    <span class="c1"># Solve the problem.</span>
+    <span class="c1"># [START solve]</span>
+    <span class="n">solution</span> <span class="o">=</span> <span class="n">routing</span><span class="o">.</span><span class="n">SolveWithParameters</span><span class="p">(</span><span class="n">search_parameters</span><span class="p">)</span>
+    <span class="c1"># [END solve]</span>
+
+    <span class="c1"># Print solution on console.</span>
+    <span class="c1"># [START print_solution]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;printing solutions&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">solution</span><span class="p">:</span>
+        <span class="n">print_solution</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">manager</span><span class="p">,</span> <span class="n">routing</span><span class="p">,</span> <span class="n">solution</span><span class="p">)</span>
+    <span class="c1"># [END print_solution]</span>
+
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="logs-from-the-back-end">
+<h2>Logs from the back end …<a class="headerlink" href="#logs-from-the-back-end" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>1598041071123 |  Starting FarOpt backend
+1598041071123 | ███████╗ █████╗ ██████╗  ██████╗ ██████╗ ████████╗
+1598041071123 | ██╔════╝██╔══██╗██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝
+1598041071123 | █████╗  ███████║██████╔╝██║   ██║██████╔╝   ██║
+1598041071123 | ██╔══╝  ██╔══██║██╔══██╗██║   ██║██╔═══╝    ██║
+1598041071123 | ██║     ██║  ██║██║  ██║╚██████╔╝██║        ██║
+1598041071123 | ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝        ╚═╝
+.
+.
+.
+.
+.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="back-end-architecture">
+<h1>Back-end architecture<a class="headerlink" href="#back-end-architecture" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="fargate-based-serverless-numerical-optimization">
+<h2>Fargate based serverless Numerical Optimization<a class="headerlink" href="#fargate-based-serverless-numerical-optimization" title="Permalink to this headline">¶</a></h2>
+<a class="reference external image-reference" href="./FarOpt.png"><img alt="" src="_images/FarOpt.png" /></a>
+<p>This architecture is a bare bones template of how you can run optimization models in a serverless fashion on Fargate. The Open source SDK can be used to submit optimization tasks and receive logs.
+Fargate will launch the container, run your code, push logs to cloudwatch and exit - you only pay for the seconds that this <em>optimzation task</em> runs.</p>
+<p>Currently supported frameworks inlcude:</p>
+<ol class="arabic simple">
+<li>PuLP</li>
+<li>Pyomo</li>
+<li>OR Tools</li>
+<li>JuMP (Julia)</li>
+</ol>
+</div>
+</div>
+<div class="section" id="what-s-coming-up">
+<h1>What’s coming up?<a class="headerlink" href="#what-s-coming-up" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li>Scheduling optimization jobs</li>
+<li>Demand forecasting using Forecast</li>
+<li>Quantum Approximate Optimization Algorithm</li>
+<li>SageMaker RL solvers for certain problem types</li>
+</ol>
+</div>
+<div class="section" id="how-to-use-this-cdk-project">
+<h1>How to use this CDK project<a class="headerlink" href="#how-to-use-this-cdk-project" title="Permalink to this headline">¶</a></h1>
+<p>You should explore the contents of this project. It demonstrates a CDK app with an instance of a stack (<code class="docutils literal notranslate"><span class="pre">faropt_stack</span></code>)
+which contains an Amazon SQS queue that is subscribed to an Amazon SNS topic.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">cdk.json</span></code> file tells the CDK Toolkit how to execute your app.</p>
+<p>This project is set up like a standard Python project.  The initialization process also creates
+a virtualenv within this project, stored under the .env directory.  To create the virtualenv
+it assumes that there is a <code class="docutils literal notranslate"><span class="pre">python3</span></code> executable in your path with access to the <code class="docutils literal notranslate"><span class="pre">venv</span></code> package.
+If for any reason the automatic creation of the virtualenv fails, you can create the virtualenv
+manually once the init process completes.</p>
+<p>To manually create a virtualenv on MacOS and Linux:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>$ python3 -m venv .env
+</pre></div>
+</div>
+<p>After the init process completes and the virtualenv is created, you can use the following
+step to activate your virtualenv.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>$ source .env/bin/activate
+</pre></div>
+</div>
+<p>If you are a Windows platform, you would activate the virtualenv like this:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>% .env\Scripts\activate.bat
+</pre></div>
+</div>
+<p>Once the virtualenv is activated, you can install the required dependencies.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>$ pip install -r requirements.txt
+</pre></div>
+</div>
+<p>At this point you can now synthesize the CloudFormation template for this code.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>$ cdk synth
+</pre></div>
+</div>
+<p>You can now begin exploring the source code, contained in the hello directory.
+There is also a very trivial test included that can be run like this:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>$ pytest
+</pre></div>
+</div>
+<p>To add additional dependencies, for example other CDK libraries, just add to
+your requirements.txt file and rerun the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>
+command.</p>
+<div class="section" id="useful-commands-for-the-back-end-stack">
+<h2>Useful commands for the back end stack<a class="headerlink" href="#useful-commands-for-the-back-end-stack" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">ls</span></code>          list all stacks in the app</li>
+<li><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">synth</span></code>       emits the synthesized CloudFormation template</li>
+<li><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">deploy</span></code>      deploy this stack to your default AWS account/region</li>
+<li><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">diff</span></code>        compare deployed stack with current state</li>
+<li><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">docs</span></code>        open CDK documentation</li>
+</ul>
+<p>Enjoy!</p>
+</div>
 </div>
 
 
+           </div>
+           
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="#">faropt</a></h1>
+          <footer>
+  
 
+  <hr/>
 
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Shreyas Subramanian
 
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-
-
-
-
-<h3>Navigation</h3>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="#">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
+</footer>
 
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2020, Shreyas Subramanian.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/index.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
     
-  </body>
+   
+
+</body>
 </html>

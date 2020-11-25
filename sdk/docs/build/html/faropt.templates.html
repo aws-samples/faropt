@@ -1,116 +1,266 @@
 
+
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>faropt.templates package &mdash; faropt Beta documentation</title>
+  
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>faropt.templates package &#8212; faropt Beta documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'Beta',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head><body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
           
 
-          <div class="body" role="main">
+          
+            <a href="index.html" class="icon icon-home"> faropt
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">faropt.templates package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-faropt.templates.blackbox">faropt.templates.blackbox module</a></li>
+<li><a class="reference internal" href="#module-faropt.templates.opsplan">faropt.templates.opsplan module</a></li>
+<li><a class="reference internal" href="#module-faropt.templates.routing">faropt.templates.routing module</a></li>
+<li><a class="reference internal" href="#module-faropt.templates">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">faropt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>faropt.templates package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/faropt.templates.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="faropt-templates-package">
 <h1>faropt.templates package<a class="headerlink" href="#faropt-templates-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="faropt-templates-blackbox-module">
-<h2>faropt.templates.blackbox module<a class="headerlink" href="#faropt-templates-blackbox-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-faropt.templates.blackbox">
+<span id="faropt-templates-blackbox-module"></span><h2>faropt.templates.blackbox module<a class="headerlink" href="#module-faropt.templates.blackbox" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="faropt.templates.blackbox.AsyncOpt">
+<em class="property">class </em><code class="descclassname">faropt.templates.blackbox.</code><code class="descname">AsyncOpt</code><span class="sig-paren">(</span><em>stackname='faropt'</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.templates.blackbox.AsyncOpt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="faropt.templates.blackbox.AsyncOpt.ask_model">
+<code class="descname">ask_model</code><span class="sig-paren">(</span><em>modelname=''</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.templates.blackbox.AsyncOpt.ask_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="faropt.templates.blackbox.AsyncOpt.create_model">
+<code class="descname">create_model</code><span class="sig-paren">(</span><em>bounds</em>, <em>modeltag=''</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.templates.blackbox.AsyncOpt.create_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="faropt.templates.blackbox.AsyncOpt.list_models">
+<code class="descname">list_models</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#faropt.templates.blackbox.AsyncOpt.list_models" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="faropt.templates.blackbox.AsyncOpt.tell_model">
+<code class="descname">tell_model</code><span class="sig-paren">(</span><em>xval</em>, <em>fval</em>, <em>modelname=''</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.templates.blackbox.AsyncOpt.tell_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="faropt.templates.blackbox.AsyncOpt.update_model">
+<code class="descname">update_model</code><span class="sig-paren">(</span><em>modelname</em>, <em>opt</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.templates.blackbox.AsyncOpt.update_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="faropt-templates-opsplan-module">
-<h2>faropt.templates.opsplan module<a class="headerlink" href="#faropt-templates-opsplan-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-faropt.templates.opsplan">
+<span id="faropt-templates-opsplan-module"></span><h2>faropt.templates.opsplan module<a class="headerlink" href="#module-faropt.templates.opsplan" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="faropt.templates.opsplan.OpsPlanOpt">
+<em class="property">class </em><code class="descclassname">faropt.templates.opsplan.</code><code class="descname">OpsPlanOpt</code><span class="sig-paren">(</span><em>stackname='faropt'</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.templates.opsplan.OpsPlanOpt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
 </div>
-<div class="section" id="faropt-templates-routing-module">
-<h2>faropt.templates.routing module<a class="headerlink" href="#faropt-templates-routing-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-faropt.templates.routing">
+<span id="faropt-templates-routing-module"></span><h2>faropt.templates.routing module<a class="headerlink" href="#module-faropt.templates.routing" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="faropt.templates.routing.RoutingOpt">
+<em class="property">class </em><code class="descclassname">faropt.templates.routing.</code><code class="descname">RoutingOpt</code><span class="sig-paren">(</span><em>stackname='faropt'</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.templates.routing.RoutingOpt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-faropt.templates">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-faropt.templates" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
 
+           </div>
+           
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">faropt</a></h1>
+          <footer>
+  
 
+  <hr/>
 
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Shreyas Subramanian
 
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-
-
-
-
-<h3>Navigation</h3>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
+</footer>
 
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2020, Shreyas Subramanian.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/faropt.templates.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
     
-  </body>
+   
+
+</body>
 </html>
