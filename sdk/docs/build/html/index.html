@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,36 +11,29 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'Beta',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -57,7 +49,7 @@
           
 
           
-            <a href="#" class="icon icon-home"> faropt
+            <a href="#" class="icon icon-home" alt="Documentation Home"> faropt
           
 
           
@@ -80,6 +72,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -113,6 +106,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -151,7 +145,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#">Docs</a> &raquo;</li>
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
       <li>Welcome to faropt’s documentation!</li>
     
@@ -180,9 +174,9 @@
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="using-the-sdk">
@@ -200,7 +194,7 @@
 <span class="o">//</span> <span class="n">submit</span> <span class="n">the</span> <span class="n">job</span>
 <span class="n">fo</span><span class="o">.</span><span class="n">submit</span><span class="p">()</span>
 
-<span class="o">//</span> <span class="k">print</span> <span class="n">logs</span><span class="p">()</span>
+<span class="o">//</span> <span class="nb">print</span> <span class="n">logs</span><span class="p">()</span>
 <span class="n">fo</span><span class="o">.</span><span class="n">logs</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -245,10 +239,10 @@
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Capacited Vehicles Routing Problem (CVRP).&quot;&quot;&quot;</span>
 
 <span class="c1"># [START import]</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
-<span class="kn">from</span> <span class="nn">ortools.constraint_solver</span> <span class="k">import</span> <span class="n">routing_enums_pb2</span>
-<span class="kn">from</span> <span class="nn">ortools.constraint_solver</span> <span class="k">import</span> <span class="n">pywrapcp</span>
-<span class="kn">from</span> <span class="nn">utils</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">ortools.constraint_solver</span> <span class="kn">import</span> <span class="n">routing_enums_pb2</span>
+<span class="kn">from</span> <span class="nn">ortools.constraint_solver</span> <span class="kn">import</span> <span class="n">pywrapcp</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="c1"># [END import]</span>
 
 
@@ -307,25 +301,25 @@
 <h1>Back-end architecture<a class="headerlink" href="#back-end-architecture" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="fargate-based-serverless-numerical-optimization">
 <h2>Fargate based serverless Numerical Optimization<a class="headerlink" href="#fargate-based-serverless-numerical-optimization" title="Permalink to this headline">¶</a></h2>
-<a class="reference external image-reference" href="./FarOpt.png"><img alt="" src="_images/FarOpt.png" /></a>
+<a class="reference external image-reference" href="./FarOpt.png"><img alt="" src="./FarOpt.png" /></a>
 <p>This architecture is a bare bones template of how you can run optimization models in a serverless fashion on Fargate. The Open source SDK can be used to submit optimization tasks and receive logs.
 Fargate will launch the container, run your code, push logs to cloudwatch and exit - you only pay for the seconds that this <em>optimzation task</em> runs.</p>
 <p>Currently supported frameworks inlcude:</p>
 <ol class="arabic simple">
-<li>PuLP</li>
-<li>Pyomo</li>
-<li>OR Tools</li>
-<li>JuMP (Julia)</li>
+<li><p>PuLP</p></li>
+<li><p>Pyomo</p></li>
+<li><p>OR Tools</p></li>
+<li><p>JuMP (Julia)</p></li>
 </ol>
 </div>
 </div>
 <div class="section" id="what-s-coming-up">
 <h1>What’s coming up?<a class="headerlink" href="#what-s-coming-up" title="Permalink to this headline">¶</a></h1>
 <ol class="arabic simple">
-<li>Scheduling optimization jobs</li>
-<li>Demand forecasting using Forecast</li>
-<li>Quantum Approximate Optimization Algorithm</li>
-<li>SageMaker RL solvers for certain problem types</li>
+<li><p>Scheduling optimization jobs</p></li>
+<li><p>Demand forecasting using Forecast</p></li>
+<li><p>Quantum Approximate Optimization Algorithm</p></li>
+<li><p>SageMaker RL solvers for certain problem types</p></li>
 </ol>
 </div>
 <div class="section" id="how-to-use-this-cdk-project">
@@ -370,11 +364,11 @@ command.</p>
 <div class="section" id="useful-commands-for-the-back-end-stack">
 <h2>Useful commands for the back end stack<a class="headerlink" href="#useful-commands-for-the-back-end-stack" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">ls</span></code>          list all stacks in the app</li>
-<li><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">synth</span></code>       emits the synthesized CloudFormation template</li>
-<li><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">deploy</span></code>      deploy this stack to your default AWS account/region</li>
-<li><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">diff</span></code>        compare deployed stack with current state</li>
-<li><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">docs</span></code>        open CDK documentation</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">ls</span></code>          list all stacks in the app</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">synth</span></code>       emits the synthesized CloudFormation template</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">deploy</span></code>      deploy this stack to your default AWS account/region</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">diff</span></code>        compare deployed stack with current state</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">docs</span></code>        open CDK documentation</p></li>
 </ul>
 <p>Enjoy!</p>
 </div>
@@ -391,11 +385,19 @@ command.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Shreyas Subramanian
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -406,7 +408,6 @@ command.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

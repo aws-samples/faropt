@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,36 +11,29 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'Beta',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -57,7 +49,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> faropt
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> faropt
           
 
           
@@ -80,6 +72,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -99,6 +92,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -137,7 +131,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>faropt package</li>
     
@@ -177,210 +171,209 @@
 </div>
 <div class="section" id="module-faropt">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-faropt" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="faropt.FarOpt">
-<em class="property">class </em><code class="descclassname">faropt.</code><code class="descname">FarOpt</code><span class="sig-paren">(</span><em>framework='ortools'</em>, <em>stackname='faropt'</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">faropt.</code><code class="sig-name descname">FarOpt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">framework</span><span class="o">=</span><span class="default_value">'ortools'</span></em>, <em class="sig-param"><span class="n">stackname</span><span class="o">=</span><span class="default_value">'faropt'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>FarOpt class used to initialize, configure and submit jobs to the back end
 :param framework: Currently only ortools, TO DO is to extend to other frameworks. Note that other frameworks like pyomo, DEAP, inspyred and pulp are supported
 :type framework: string, optional
 :param stackname: Points to the backend CDK stack that needs to be launched separately. Default name is faropt, but you many need to pass in another name while testing
 :type stackname: string, optional</p>
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.add_recipe">
-<code class="descname">add_recipe</code><span class="sig-paren">(</span><em>recipe_name</em>, <em>maintainer='Faropt SDK user'</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.add_recipe" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_recipe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">recipe_name</span></em>, <em class="sig-param"><span class="n">maintainer</span><span class="o">=</span><span class="default_value">'Faropt SDK user'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.add_recipe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a recipe referencing the job that you submitted (see self object params).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>recipe_name</strong> (<em>string</em>) – Friendly name for your recipe</li>
-<li><strong>maintainer</strong> – Recipe author/maintainer</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>recipe_name</strong> (<em>string</em>) – Friendly name for your recipe</p></li>
+<li><p><strong>maintainer</strong> – Recipe author/maintainer</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.configure">
-<code class="descname">configure</code><span class="sig-paren">(</span><em>source_dir</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.configure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">configure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_dir</span></em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.configure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Zips up a local folder containing your main.py code, and any other subfolders/files required to run your project. Make note of the output structure printed to see if all files that you need are printed.ArithmeticError</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>source_dir</strong> (<em>string</em>) – path to your source, such as ‘./home/src/’</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>source_dir</strong> (<em>string</em>) – path to your source, such as ‘./home/src/’</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.get_metric_data">
-<code class="descname">get_metric_data</code><span class="sig-paren">(</span><em>metric_name</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.get_metric_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns raw metric data that was submitted from the backend. To use this, do from utils import * in your main.py, and then use log_metric like this, for e.g: log_metric(‘total_distance’,total_distance)
-:return: response from cloudwatch
-:rtype: json string</p>
+<code class="sig-name descname">get_metric_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">metric_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.get_metric_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns raw metric data that was submitted from the backend. To use this, do from utils import * in your main.py, and then use log_metric like this, for e.g: log_metric(‘total_distance’,total_distance)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>response from cloudwatch</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>json string</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.get_recipe_id_from_description">
-<code class="descname">get_recipe_id_from_description</code><span class="sig-paren">(</span><em>description</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.get_recipe_id_from_description" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_recipe_id_from_description</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">description</span></em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.get_recipe_id_from_description" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns UUID of a recipe based on friendly description/ recipe name</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>description</strong> (<em>string</em>) – friendly description/ recipe name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">First UUID that matches the description of the recipe</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">uuid4()</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>description</strong> (<em>string</em>) – friendly description/ recipe name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>First UUID that matches the description of the recipe</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>uuid4()</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.list_jobs">
-<code class="descname">list_jobs</code><span class="sig-paren">(</span><em>limit=10</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.list_jobs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">list_jobs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">limit</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.list_jobs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns list of jobs submitted</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>limit</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of jobs to return, Defaults to 10</li>
-<li><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbose print of the job table, Defaults to True</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>limit</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of jobs to return, Defaults to 10</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbose print of the job table, Defaults to True</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">job table scan (raw) results</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">boto3 response</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>job table scan (raw) results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>boto3 response</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.list_recipes">
-<code class="descname">list_recipes</code><span class="sig-paren">(</span><em>limit=10</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.list_recipes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">list_recipes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">limit</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.list_recipes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns list of recipes registered</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>limit</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of recipes to return, Defaults to 10</li>
-<li><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbose print of the recipe table, Defaults to True</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>limit</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of recipes to return, Defaults to 10</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – Verbose print of the recipe table, Defaults to True</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Recipe table scan (raw) results</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">boto3 response</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Recipe table scan (raw) results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>boto3 response</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.logs">
-<code class="descname">logs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.logs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">logs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.logs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints logs of a submitted job.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.primary_status">
-<code class="descname">primary_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.primary_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the last status of the submitted job; Can be PROVISIONING &gt; PENDING &gt; RUNNING &gt; STOPPED &gt; JOB COMPLETED
-:return: primary staus
-:rtype: string</p>
+<code class="sig-name descname">primary_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.primary_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the last status of the submitted job; Can be PROVISIONING &gt; PENDING &gt; RUNNING &gt; STOPPED &gt; JOB COMPLETED</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>primary staus</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>string</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.printlogs">
-<code class="descname">printlogs</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.printlogs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">printlogs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">response</span></em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.printlogs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.run_recipe">
-<code class="descname">run_recipe</code><span class="sig-paren">(</span><em>recipe_id</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.run_recipe" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run_recipe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">recipe_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.run_recipe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs already registered recipe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>recipe_id</strong> (<em>string</em>) – UUID of recipe</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>recipe_id</strong> (<em>string</em>) – UUID of recipe</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.run_s3_job">
-<code class="descname">run_s3_job</code><span class="sig-paren">(</span><em>bucket</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.run_s3_job" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run_s3_job</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bucket</span></em>, <em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">micro</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.run_s3_job" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs job based on a source file in bucket/key. For example, place a source.zip in s3://bucket/key/source.zip and submit a job</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>bucket</strong> (<em>string</em>) – Bucket name</li>
-<li><strong>key</strong> (<em>string</em>) – path/key on S3 that looks like path/to/s3/key/source.zip inside the bucket</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bucket</strong> (<em>string</em>) – Bucket name</p></li>
+<li><p><strong>key</strong> (<em>string</em>) – path/key on S3 that looks like path/to/s3/key/source.zip inside the bucket</p></li>
+<li><p><strong>micro</strong> (<em>bool</em>) – Submit a micro job.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
+<dt id="faropt.FarOpt.stage">
+<code class="sig-name descname">stage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.stage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uploads the source.zip but does not submit to fargate. Useful when you want to run later</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="faropt.FarOpt.status">
-<code class="descname">status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.status" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the full status of the submitted job; used in primary_status, which should be enough for most use cases</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.stop">
-<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.stop" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stops a submitted task</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.stream_logs">
-<code class="descname">stream_logs</code><span class="sig-paren">(</span><em>start_time=0</em>, <em>skip=0</em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.stream_logs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stream_logs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start_time</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">skip</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.stream_logs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Internal, use self.logs() instead of streaming</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.submit">
-<code class="descname">submit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.submit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">submit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">micro</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.submit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs job defined in object params. Creates a new job ID to track and sets submitted to True. Check self.jobname to reference the job that was submitted. View self.logs() once the job has completed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>micro</strong> (<em>bool</em>) – Submit a micro job. By submitting a micro job, you are restricted to using ortools, pyomo and deap libraries for jobs that last up to 5 minutes</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="faropt.FarOpt.wait">
-<code class="descname">wait</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.wait" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">wait</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#faropt.FarOpt.wait" title="Permalink to this definition">¶</a></dt>
 <dd><p>Polls for the primary status of the container task that runs this job. You should see PROVISIONING &gt; PENDING &gt; RUNNING &gt; STOPPED &gt; JOB COMPLETED</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">primary status of the job that was submitted</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>primary status of the job that was submitted</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -399,11 +392,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Shreyas Subramanian
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -414,7 +415,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

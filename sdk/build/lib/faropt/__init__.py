@@ -6,6 +6,8 @@ import zipfile
 from datetime import datetime, timedelta
 from uuid import uuid4
 import time
+import base64
+import json
 
 logging.basicConfig(level=logging.INFO)
 
@@ -47,6 +49,12 @@ class FarOpt(object):
                     if output['OutputKey']=='jobtable':
                         self.jobtable = output['OutputValue']
                         logging.info('Job table: ' + self.jobtable)
+                    
+                    if output['OutputKey']=='lambdaopt':
+                        self.lambdaopt = output['OutputValue']
+                        logging.info('Lambda Opt function: ' + self.lambdaopt)
+                        
+                        
                 
                 self.configured = False
                 self.submitted = False
@@ -112,13 +120,15 @@ class FarOpt(object):
         else:
             logging.error('Please configure the job first!')
             
-    def run_s3_job(self, bucket, key):
+    def run_s3_job(self, bucket, key, micro=False):
         """Runs job based on a source file in bucket/key. For example, place a source.zip in s3://bucket/key/source.zip and submit a job
         
         :param bucket: Bucket name
         :type bucket: string
         :param key: path/key on S3 that looks like path/to/s3/key/source.zip inside the bucket
         :type key: string
+        :param micro: Submit a micro job. 
+        :type micro: bool
         """
         
         logging.info("Downloading source...")
@@ -130,7 +140,10 @@ class FarOpt(object):
         self.file_name = 'source.zip'
         logging.info("Configured job!")
         self.configured = True
-        self.submit()
+        if micro:
+            self.stage()
+            
+        self.submit(micro = micro)
         
     def get_recipe_id_from_description(self, description):
         """Returns UUID of a recipe based on friendly description/ recipe name
@@ -188,8 +201,31 @@ class FarOpt(object):
             
         logging.info("JOB COMPLETED!")
         
-    def submit(self):
+        
+    def stage(self):
+        """Uploads the source.zip but does not submit to fargate. Useful when you want to run later
+        """
+        logging.info("Staging job")
+        s3_client = boto3.client('s3')
+        try:
+            eventid = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')+'-'+str(uuid4())
+            response = s3_client.upload_file(self.path_file_name, self.asyncbucket,'staged/'+eventid+'/source.zip')
+            
+            logging.info("Staged job! id: " + str(eventid))
+
+            self.jobname = eventid
+            self.stagedkey = 'staged/'+eventid
+    
+            logging.info(f"Look for s3://{self.asyncbucket}/staged/{self.jobname}/source.zip")
+        except:
+            logging.error("Could not stage job")
+        
+        
+    def submit(self, micro=False):
         """Runs job defined in object params. Creates a new job ID to track and sets submitted to True. Check self.jobname to reference the job that was submitted. View self.logs() once the job has completed
+        
+        :param micro: Submit a micro job. By submitting a micro job, you are restricted to using ortools, pyomo and deap libraries for jobs that last up to 5 minutes
+        :type micro: bool
         """
         if self.configured :
             logging.info("Submitting job")
@@ -197,26 +233,55 @@ class FarOpt(object):
             self.ddb_resource = boto3.resource('dynamodb')
             self.ddb_table = self.ddb_resource.Table(self.jobtable)
             
-            try:
-                eventid = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')+'-'+str(uuid4())
-                response = s3_client.upload_file(self.path_file_name, self.bucket,eventid+'/source.zip')
-                
-                logging.info("Submitted job! id: " + str(eventid))
-
-                self.jobname = eventid
-                
-                # Add job to dynamoDB
-                job = {
-                'jobid': self.jobname,
-                'bucket': self.bucket,
-                'path': eventid+'/source.zip'}
-                
-                self.ddb_table.put_item(Item=job)
-                
-                
-            except ClientError as e:
-                logging.error(e)
-                return False
+            if not micro:
+                try:
+                    self.micro = False
+                    eventid = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')+'-'+str(uuid4())
+                    response = s3_client.upload_file(self.path_file_name, self.bucket,eventid+'/source.zip')
+                    
+                    logging.info("Submitted job! id: " + str(eventid))
+                    
+                    self.jobname = eventid
+                    
+                    # Add job to dynamoDB
+                    job = {
+                    'jobid': self.jobname,
+                    'bucket': self.bucket,
+                    'path': eventid+'/source.zip'}
+                    
+                    self.ddb_table.put_item(Item=job)
+                except ClientError as e:
+                    logging.error(e)
+                    return False
+            
+            else:
+                try:
+                    self.stage()
+                    self.micro = True
+                    logging.info("By submitting a micro job, you are restricted to using ortools, pyomo and deap libraries for jobs that last up to 5 minutes")
+                    lamclient = boto3.client("lambda")
+                    response = lamclient.invoke(
+                        FunctionName=self.lambdaopt,
+                        InvocationType='RequestResponse',
+                        LogType='Tail',
+                        Payload=json.dumps({'s3bucket':self.asyncbucket,'s3key':self.stagedkey}).encode())
+                        
+                    # Add job to dynamoDB
+                    job = {
+                    'jobid': self.stagedkey,
+                    'bucket': self.asyncbucket,
+                    'path': self.stagedkey+'/source.zip'}
+                    
+                    self.ddb_table.put_item(Item=job)
+                    
+                    base64_message = response['LogResult']
+                    print(base64.b64decode(base64_message.encode()).decode())
+                    self.micrologs = base64.b64decode(base64_message.encode()).decode()
+                    
+                except ClientError as e:
+                    logging.error(e)
+                    return False
+            
         else:
             logging.error('Please configure the job first!')
             
@@ -316,13 +381,16 @@ class FarOpt(object):
         """Stops a submitted task
         """
         # if self.primary_status() in ['STOPPED','DEPROVISIONING','RUNNING']:
-        client = boto3.client('ecs')
-        taskarn = self.status()['tasks'][0]['taskArn'].split('/')[-1]
-        response = client.stop_task(
-            cluster='FarOptCluster',
-            task=taskarn,
-            reason='User stopped task'
-            )
+        if self.submitted and self.micro==False:
+            client = boto3.client('ecs')
+            taskarn = self.status()['tasks'][0]['taskArn'].split('/')[-1]
+            response = client.stop_task(
+                cluster='FarOptCluster',
+                task=taskarn,
+                reason='User stopped task'
+                )
+        else:
+            logging.info("Please ensure you have submitted a non-micro job")
         # else:
         #     logging.info('Job status: ' + self.primary_status())
             
@@ -336,13 +404,17 @@ class FarOpt(object):
         """Prints logs of a submitted job. 
         """
         if self.primary_status() in ['STOPPED','DEPROVISIONING','RUNNING']:
-            taskarn = self.status()['tasks'][0]['taskArn'].split('/')[-1]
-            client = boto3.client('logs')
-            response = client.get_log_events(
-                        logGroupName='faroptlogGroup',
-                        logStreamName='faroptlogs/FarOptImage/' + taskarn)
+            if self.micro == False:
+                taskarn = self.status()['tasks'][0]['taskArn'].split('/')[-1]
+                client = boto3.client('logs')
+                response = client.get_log_events(
+                            logGroupName='faroptlogGroup',
+                            logStreamName='faroptlogs/FarOptImage/' + taskarn)
+                
+                self.printlogs(response)
             
-            self.printlogs(response)
+            else:
+                print(self.micrologs)
 
         else:
             print('Please wait for the task to start running | ' + self.primary_status())
@@ -354,12 +426,15 @@ class FarOpt(object):
         :return: primary staus
         :rtype: string
         """
-        return self.status()['tasks'][0]['lastStatus']
+        if self.micro == False:
+            return self.status()['tasks'][0]['lastStatus']
+        else:
+            return 'STOPPED'
         
     def status(self):
         """Returns the full status of the submitted job; used in primary_status, which should be enough for most use cases
         """
-        if self.submitted:
+        if self.submitted and self.micro==False:
 
             client = boto3.client('ecs')
             response1 = client.list_tasks(
@@ -384,7 +459,7 @@ class FarOpt(object):
             return response
                         
         else:
-            logging.error("Please submit a job first!")
+            logging.error("Please submit a non-micro job first!")
                       
     def get_metric_data(self,metric_name):
         """Returns raw metric data that was submitted from the backend. To use this, do from utils import * in your main.py, and then use log_metric like this, for e.g: log_metric('total_distance',total_distance)
