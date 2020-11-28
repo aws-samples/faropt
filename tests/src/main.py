@@ -117,9 +117,9 @@ def print_solution(data, manager, routing, solution):
         print(plan_output)
         total_distance += route_distance
         total_load += route_load
-    print('Total distance of all routes: {}m'.format(total_distance))
+    print('Total distance of all routes: {} m'.format(total_distance))
     log_metric('total_distance',total_distance)
-    save('/tmp/task.py') #or some other output
+    save('/tmp/main.py') #or some other output
     print('Total load of all routes: {}'.format(total_load))
     # [END solution_printer]
 

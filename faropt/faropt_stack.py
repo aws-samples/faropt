@@ -124,7 +124,40 @@ class FaroptStack(core.Stack):
         # assign notification for the s3 event type (ex: OBJECT_CREATED)
         s3.add_event_notification(_s3.EventType.OBJECT_CREATED, notification)
         
+        
+        # Lambda opt function with layer
+        
+        # 1- create layer
+        
+        layercode = _lambda.Code.from_asset(path="./layers/orpyomoblack.zip")
+        layer2 = _lambda.LayerVersion(self,id="layer2",code=layercode)
+        
+        # 2- create function
+        function2 = _lambda.Function(self, "lambda_function2",
+                                    runtime=_lambda.Runtime.PYTHON_3_7,
+                                    handler="lambda-handler.main",
+                                    code=_lambda.Code.asset("./lambda2"),
+                                    environment= {
+                                        'cluster_name': cluster.cluster_name,
+                                        'launch_type':'FARGATE',
+                                        'task_definition':faroptTask.to_string(),
+                                        'task_family':faroptTask.family,
+                                        'subnet1':subnets[0].subnet_id,
+                                        'subnet2':subnets[-1].subnet_id,
+                                        'bucket':s3.bucket_name
+                                    },
+                                    timeout=core.Duration.seconds(900),
+                                    memory_size=2048,
+                                    layers = [layer2],
+                                    initial_policy = [iam.PolicyStatement(actions=['ecs:RunTask','ecs:PutAccountSetting','s3:*','iam:PassRole','cloudwatch:PutMetricData'],resources=['*'])])
+
+        
+        
+        
+        
+        # OUTPUTS
         core.CfnOutput(self, 's3output', value=s3.bucket_name, export_name='bucket')
         core.CfnOutput(self, 'jobtable', value=jobtable.table_name, export_name='jobtable')
         core.CfnOutput(self, 'recipetable', value=recipetable.table_name, export_name='recipetable')
         core.CfnOutput(self, 's3asyncoutput', value=s3async.bucket_name, export_name='asyncbucket')
+        core.CfnOutput(self, 'lambdaopt', value=function2.function_name, export_name='lambdaopt')

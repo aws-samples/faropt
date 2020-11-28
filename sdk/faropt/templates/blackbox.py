@@ -169,7 +169,7 @@ class AsyncOpt(object):
         """
 
         client = boto3.client('s3')
-        result = client.list_objects(Bucket=bucket,Delimiter='/model.pkl',MaxKeys=100)
+        result = client.list_objects(Bucket=self.asyncbucket,Delimiter='/model.pkl',MaxKeys=100)
         for o in result.get('CommonPrefixes'):
             tmpprefix = o.get('Prefix')
             

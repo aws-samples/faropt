@@ -28,3 +28,5 @@ def log_metric(key,value):
         ],
         Namespace='FarOpt'
     )
+    
+    print(response)
