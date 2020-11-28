@@ -1,0 +1,3 @@
+pip install sphinx_rtd_theme
+sphinx-apidoc -o source/ ../faropt -f
+make html
