@@ -270,7 +270,9 @@ main()
 
 ![](./faropt.png)
 
-# How to use this CDK project
+# How to use this CDK project (Backend setup)
+
+First set up CDK (see prerequisites section here - https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
 
 You should explore the contents of this project. It demonstrates a CDK app with an instance of a stack (`faropt_stack`)
 which contains an Amazon SQS queue that is subscribed to an Amazon SNS topic.
