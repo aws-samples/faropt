@@ -9,13 +9,13 @@ phases:
 
   pre_build:
     commands:
-      - mkdir stack/deployment
-      - cd stack/deployment
+      - mkdir deployment
+      - cd deployment
       - cdk init --language=python
 
   build:
     commands:
       # copy deployment_stack to generate CDK deployment folder
-      - cp ../deployment_stack.py ./deployment
+      - cp -r ../* ./
       - cdk bootstrap aws://${ACCOUNT_ID}/${AWS_REGION}
       - cdk deploy --parameters ProjectName=${PROJECT_NAME} --require-approval never
