@@ -10,8 +10,14 @@ phases:
   pre_build:
     commands:
       - ls
-      - ls ../
       - pwd
+      - mkdir stack/deployment
+      - cd stack/deployment
+      - cdk init --language=python
+      - cd ../../
+      - ls
+      - pwd
+
 
   build:
     commands:
