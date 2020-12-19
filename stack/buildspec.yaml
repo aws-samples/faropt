@@ -20,8 +20,5 @@ phases:
     commands:
       # copy deployment_stack to generate CDK deployment folder
       - ls
-      - ls ../
-      - pwd
-      - cp -r ../* ./
       - cdk bootstrap aws://${ACCOUNT_ID}/${AWS_REGION}
       - cdk deploy --parameters ProjectName=${PROJECT_NAME} --require-approval never
