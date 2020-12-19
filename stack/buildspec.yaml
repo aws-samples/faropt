@@ -3,15 +3,13 @@ version: 0.2
 phases:
   install:
     commands:
-      - npm install -g aws-cdk@1.65.0
-      - pip install --upgrade aws-cdk.aws_ecs_patterns==1.65.0
-      - pip install --upgrade aws-cdk.aws_rds==1.65.0
-
+      - npm install -g aws-cdk@1.56.0
+      - pip install -r requirements.txt
+      
   pre_build:
     commands:
       - ls
       - pwd
-      - pip install -r requirements.txt
       - cd ..
       - mkdir -p deploytmp/faropt
       - cd deploytmp/faropt
@@ -23,6 +21,7 @@ phases:
       # copy deployment_stack to generate CDK deployment folder
       - pwd
       - cdk bootstrap aws://${ACCOUNT_ID}/${AWS_REGION}
+      - rm ./faropt/faropt_stack.py
       - mv ../faropt/faropt/faropt_stack.py ./faropt/
       - cat ./faropt/faropt_stack.py
       - cdk deploy
