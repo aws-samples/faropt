@@ -9,8 +9,8 @@ phases:
 
   pre_build:
     commands:
-      - mkdir deployment
-      - cd deployment
+      - mkdir stack/deployment
+      - cd stack/deployment
       - cdk init --language=python
 
   build:
