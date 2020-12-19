@@ -20,7 +20,6 @@ phases:
     commands:
       # copy deployment_stack to generate CDK deployment folder
       - pwd
-      - cdk bootstrap aws://${ACCOUNT_ID}/${AWS_REGION}
       - rm ./faropt/faropt_stack.py
       - mv ../faropt/faropt/faropt_stack.py ./faropt/
       - cat ./faropt/faropt_stack.py
