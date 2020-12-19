@@ -24,4 +24,4 @@ phases:
       - pwd
       - cp -r ../faropt/* ./
       - ls
-      - cdk deploy
+      - cdk deploy --profile default
