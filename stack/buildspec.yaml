@@ -20,5 +20,6 @@ phases:
     commands:
       # copy deployment_stack to generate CDK deployment folder
       - ls
+      - pip install -r requirements.txt
       - cdk bootstrap aws://${ACCOUNT_ID}/${AWS_REGION}
-      - cdk deploy --parameters ProjectName=${PROJECT_NAME} --require-approval never
+      - cdk deploy
