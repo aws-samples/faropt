@@ -12,7 +12,11 @@ phases:
       - ls
       - pwd
       - pip install -r requirements.txt
+      - mkdir deploytmp
+      - cd deploytmp
+      - cdk init --language=python
       - cdk bootstrap aws://${ACCOUNT_ID}/${AWS_REGION}
+      - cd ..
 
 
   build:
