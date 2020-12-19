@@ -17,6 +17,8 @@ phases:
       - cd deploytmp
       - cdk init --language=python
       - cdk bootstrap aws://${ACCOUNT_ID}/${AWS_REGION}
+      - export CDK_DEFAULT_ACCOUNT=${ACCOUNT_ID}
+      - export CDK_DEFAULT_REGION=${AWS_REGION}
 
   build:
     commands:
