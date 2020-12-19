@@ -7,7 +7,7 @@ import os
 
 app = core.App()
 
-FaroptStack(app, "faropt", env={'region': os.environ["CDK_DEFAULT_REGION"], 'account':os.environ["CDK_DEFAULT_ACCOUNT"] }, trustedAccount: os.environ["CDK_DEFAULT_ACCOUNT"]) #overriding region for test
+FaroptStack(app, "faropt", env={'region': os.environ["CDK_DEFAULT_REGION"], 'account':os.environ["CDK_DEFAULT_ACCOUNT"] }, trustedAccount= os.environ["CDK_DEFAULT_ACCOUNT"]) #overriding region for test
 
 app.synth()
 
