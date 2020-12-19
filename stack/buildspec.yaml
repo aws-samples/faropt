@@ -21,6 +21,6 @@ phases:
     commands:
       # copy deployment_stack to generate CDK deployment folder
       - pwd
-      - cp -r ../* ./
+      - rsync -avr --exclude='../deploytmp/' ../* ./
       - ls
       - cdk deploy
