@@ -28,4 +28,4 @@ phases:
       - pwd
       - cp -r ../faropt/* ./
       - ls
-      - cdk deploy faropt
+      - cdk deploy faropt –-plugin cdk-assume-role-credential-plugin
