@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     commands:
-      - npm install -g aws-cdk@1.65.0
+      - npm install -g aws-cdk
       - pip install -r requirements.txt
       
   pre_build:
