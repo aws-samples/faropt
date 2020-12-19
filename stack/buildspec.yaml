@@ -14,8 +14,8 @@ phases:
       - pip install -r requirements.txt
       - cd ..
       - mkdir -p deploytmp/faropt
-      - cd deploytmp
-      - cd faropt
+      - cd deploytmp/faropt
+      - ls
       - cdk init --language=python
      
   build:
@@ -23,6 +23,6 @@ phases:
       # copy deployment_stack to generate CDK deployment folder
       - pwd
       - cdk bootstrap aws://${ACCOUNT_ID}/${AWS_REGION}
-      - cp -r ../faropt/faropt/faropt_stack.py ./faropt/faropt_stack.py
+      - mv ../faropt/faropt/faropt_stack.py ./faropt/
       - cat ./faropt/faropt_stack.py
       - cdk deploy
