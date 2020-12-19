@@ -33,4 +33,4 @@ phases:
       - pwd
       - cp -r ../faropt/* ./
       - ls
-      - cdk deploy faropt
+      - cdk deploy faropt --ec2creds
