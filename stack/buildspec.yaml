@@ -24,6 +24,6 @@ phases:
     commands:
       # copy deployment_stack to generate CDK deployment folder
       - pwd
-      - cp -r ../faropt/* ./deploytmp/
-      - ls
+      - cp -r ../faropt/faropt/* ./deploytmp/deploytmp
+      - ls deploytmp/deploytmp
       - cdk deploy
