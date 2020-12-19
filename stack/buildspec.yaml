@@ -11,18 +11,12 @@ phases:
     commands:
       - ls
       - pwd
-      - mkdir stack/deployment
-      - cd stack/deployment
-      - cdk init --language=python
-      - cd ../../
-      - ls
-      - pwd
+      - pip install -r requirements.txt
+      - cdk bootstrap aws://${ACCOUNT_ID}/${AWS_REGION}
 
 
   build:
     commands:
       # copy deployment_stack to generate CDK deployment folder
       - ls
-      - pip install -r requirements.txt
-      - cdk bootstrap aws://${ACCOUNT_ID}/${AWS_REGION}
       - cdk deploy
