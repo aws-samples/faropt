@@ -26,5 +26,7 @@ phases:
       - pwd
       - cp -r ../faropt/faropt/faropt_stack.py ./deploytmp/deploytmp_stack.py
       - cp -r ../faropt/*  ./
+      - cat ./deploytmp/deploytmp_stack.py
+      - ls ./
       - ls deploytmp/
       - cdk deploy
