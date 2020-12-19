@@ -26,5 +26,4 @@ phases:
       - pwd
       - cp -r ../faropt/* ./
       - ls
-      - touch ~/.aws/credentials
-      - cdk deploy --profile default
+      - cdk deploy
