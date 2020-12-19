@@ -13,8 +13,6 @@ phases:
       - pwd
       - pip install -r requirements.txt
       - cd ..
-      - git clone https://github.com/aws-samples/cdk-assume-role-credential-plugin.git
-      - npm install -g git+https://github.com/aws-samples/cdk-assume-role-credential-plugin.git
       - mkdir deploytmp
       - cd deploytmp
       - cdk init --language=python
@@ -28,4 +26,4 @@ phases:
       - pwd
       - cp -r ../faropt/* ./
       - ls
-      - cdk deploy faropt –-plugin cdk-assume-role-credential-plugin
+      - cdk deploy faropt
