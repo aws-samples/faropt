@@ -12,6 +12,7 @@ phases:
       - ls
       - pwd
       - pip install -r requirements.txt
+      - cd ..
       - mkdir deploytmp
       - cd deploytmp
       - cdk init --language=python
@@ -21,6 +22,6 @@ phases:
     commands:
       # copy deployment_stack to generate CDK deployment folder
       - pwd
-      - rsync -avr --exclude='../deploytmp/' ../* ./
+      - cp -r ../faropt/* ./
       - ls
       - cdk deploy
