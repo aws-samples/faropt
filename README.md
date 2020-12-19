@@ -16,7 +16,7 @@ Currently supported frameworks inlcude:
 
 
 You can deploy the example stack in **us-east-1**, **us-west-1**, and **eu-west-1** by following these steps:
-1. Use the following button to launch the AWS CloudFormation stack. [![button](media/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation#/stacks/new?stackName=mlflow-build&templateURL=https://faropt-us-east-1.s3.amazonaws.com/codebuild-stack.yaml)
+1. Use the following button to launch the AWS CloudFormation stack. [![button](cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation#/stacks/new?stackName=mlflow-build&templateURL=https://faropt-us-east-1.s3.amazonaws.com/codebuild-stack.yaml)
 2. Click **Next** and leave all options as default, until you reach the final screen
 3. Select **I acknowledge that AWS CloudFormation might create IAM resources.**
 4. Choose **Create**.
