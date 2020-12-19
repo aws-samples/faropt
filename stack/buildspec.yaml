@@ -9,18 +9,10 @@ phases:
   pre_build:
     commands:
       - ls
-      - pwd
-      - cd ..
-      - mkdir -p deploytmp/faropt
-      - cd deploytmp/faropt
-      - ls
-      - cdk init --language=python
+      - cdk bootstrap
+
      
   build:
     commands:
       # copy deployment_stack to generate CDK deployment folder
-      - pwd
-      - rm ./faropt/faropt_stack.py
-      - mv ../../faropt/faropt_stack.py ./faropt/
-      - cat ./faropt/faropt_stack.py
       - cdk deploy
