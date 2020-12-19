@@ -16,11 +16,11 @@ phases:
       - cd deploytmp
       - cdk init --language=python
       - cdk bootstrap aws://${ACCOUNT_ID}/${AWS_REGION}
-      - cd ..
-
 
   build:
     commands:
       # copy deployment_stack to generate CDK deployment folder
+      - pwd
+      - cp -r ../* ./
       - ls
       - cdk deploy
