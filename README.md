@@ -15,7 +15,7 @@ Currently supported frameworks inlcude:
 1. JuMP (Julia)
 
 
-To create the back end stack:
+# To create the back end stack:
 
 1. Create a cloud 9 instance
 2. Clone this repo: `git clone https://github.com/aws-samples/faropt.git`
