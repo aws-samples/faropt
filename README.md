@@ -19,7 +19,7 @@ Currently supported frameworks inlcude:
 
 1. Create a cloud 9 instance (choose the m5.2xlarge instance type)
 2. Clone this repo: `git clone https://github.com/aws-samples/faropt.git`
-3. Install CDK: `npm install -g aws-cdk`  
+3. Check if CDK is installed `cdk --version`, or Install CDK: `npm install -g aws-cdk`  
 4. cd into the folder (`cd faropt`)
 5. `sudo pip install -r requirements.txt`
 5. run `cdk bootstrap --profile default` followed by 
