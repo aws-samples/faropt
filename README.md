@@ -21,6 +21,7 @@ Currently supported frameworks inlcude:
 2. Clone this repo: `git clone https://github.com/aws-samples/faropt.git`
 3. Install CDK: `npm install -g aws-cdk`  
 4. cd into the folder (`cd faropt`)
+5. `pip install -r requirements.txt`
 5. run `cdk bootstrap` followed by `cdk deploy`
 
 ## Using the SDK
