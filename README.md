@@ -22,7 +22,8 @@ Currently supported frameworks inlcude:
 3. Install CDK: `npm install -g aws-cdk`  
 4. cd into the folder (`cd faropt`)
 5. `sudo pip install -r requirements.txt`
-5. run `cdk bootstrap` followed by `cdk deploy`
+5. run `cdk bootstrap --profile default` followed by 
+6. `cdk deploy --profile default`
 
 ## Using the SDK
 
