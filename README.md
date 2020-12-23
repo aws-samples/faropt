@@ -21,9 +21,10 @@ Currently supported frameworks inlcude:
 2. Clone this repo: `git clone https://github.com/aws-samples/faropt.git`
 3. Check if CDK is installed `cdk --version`, or Install CDK: `npm install -g aws-cdk`  
 4. cd into the folder (`cd faropt`)
-5. `sudo pip install -r requirements.txt`
-5. run `cdk bootstrap --profile default` followed by 
-6. `cdk deploy --profile default`
+5. Resize the EBS volume `sh resize.sh 50`
+6. `sudo pip install -r requirements.txt`
+7. run `cdk bootstrap --profile default` followed by 
+8. `cdk deploy --profile default`
 
 ## Using the SDK
 
