@@ -29,7 +29,7 @@ setuptools.setup(
         "aws-cdk.aws_s3_notifications",
         "aws-cdk.aws_dynamodb",
         "aws-cdk.aws_ecs",
-        boto3
+        "boto3"
     ],
 
     python_requires=">=3.6",
