@@ -15,11 +15,12 @@ Currently supported frameworks inlcude:
 1. JuMP (Julia)
 
 
-You can deploy the example stack in **us-east-1** by following these steps:
-1. click this button to launch the AWS CloudFormation stack. [![button](cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation#/stacks/new?stackName=faropt-build&templateURL=https://faropt-us-east-1.s3.amazonaws.com/codebuild-stack.yaml)
-2. Click **Next** and leave all options as default, until you reach the final screen
-3. Select **I acknowledge that AWS CloudFormation might create IAM resources.**
-4. Choose **Create**.
+To create the back end stack:
+
+1. Create a cloud 9 instance
+2. Clone this repo: `git clone https://github.com/aws-samples/faropt.git`
+3. Install CDK: `npm install -g aws-cdk`  
+4. run `cdk bootstrap` followed by `cdk deploy`
 
 ## Using the SDK
 
