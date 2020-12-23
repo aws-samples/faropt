@@ -17,7 +17,7 @@ Currently supported frameworks inlcude:
 
 # To create the back end stack:
 
-1. Create a cloud 9 instance (choose the m5.2xlarge instance type)
+1. Create a cloud 9 instance (choose the m5.2xlarge instance type, and a suitable availability zone in network settings, like 1a in us-east-1)
 2. Clone this repo: `git clone https://github.com/aws-samples/faropt.git`
 3. Check if CDK is installed `cdk --version`, or Install CDK: `npm install -g aws-cdk`  
 4. cd into the folder (`cd faropt`)
