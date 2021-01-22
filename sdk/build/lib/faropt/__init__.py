@@ -106,14 +106,28 @@ class FarOpt(object):
             self.ddb_resource = boto3.resource('dynamodb')
             self.ddb_table = self.ddb_resource.Table(self.recipetable)
             UID = str(uuid4())
-            job = {
-                'recipeid': UID,
-                'description':recipe_name,
-                'bucket': self.bucket,
-                'path': self.jobname+'/'+self.file_name,
-                'maintainer':maintainer,
-                'code':'see path'
-            }
+            
+            if self.micro:
+                
+                job = {
+                    'recipeid': UID,
+                    'description':recipe_name,
+                    'bucket': self.asyncbucket,
+                    'path': self.stagedkey+'/source.zip',
+                    'maintainer':maintainer,
+                    'code':'see path'
+                }
+            
+            
+            else:
+                job = {
+                    'recipeid': UID,
+                    'description':recipe_name,
+                    'bucket': self.bucket,
+                    'path': self.jobname+'/'+self.file_name,
+                    'maintainer':maintainer,
+                    'code':'see path'
+                }
                 
             self.ddb_table.put_item(Item=job)
             
@@ -159,11 +173,13 @@ class FarOpt(object):
                 return r['recipeid']
         
         
-    def run_recipe(self, recipe_id):
+    def run_recipe(self, recipe_id, micro=False):
         """Runs already registered recipe
         
         :param recipe_id: UUID of recipe
         :type recipe_id: string
+        :param micro: Submit as a micro job
+        :type recipe_id: bool
         """
         try:
             self.ddb_resource = boto3.resource('dynamodb')
@@ -182,7 +198,7 @@ class FarOpt(object):
             self.file_name = 'source.zip'
             logging.info("Configured job!")
             self.configured = True
-            self.submit()
+            self.submit(micro=micro)
         
         except ClientError as e:
                 logging.error(e)

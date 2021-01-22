@@ -129,7 +129,7 @@ class FaroptStack(core.Stack):
         
         # 1- create layer
         
-        layercode = _lambda.Code.from_asset(path="./layers/orpyomoblack.zip")
+        layercode = _lambda.Code.from_asset(path="./layers/orblacknp.zip") # adding np to the layer
         layer2 = _lambda.LayerVersion(self,id="layer2",code=layercode)
         
         # 2- create function
