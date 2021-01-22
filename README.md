@@ -14,6 +14,18 @@ Currently supported frameworks inlcude:
 1. OR Tools
 1. JuMP (Julia)
 
+
+# To create the back end stack:
+
+1. Create a cloud 9 instance (choose the m5.2xlarge instance type, and a suitable availability zone in network settings, like 1a in us-east-1)
+2. Clone this repo: `git clone https://github.com/aws-samples/faropt.git`
+3. Check if CDK is installed `cdk --version`, or Install CDK: `npm install -g aws-cdk`  
+4. cd into the folder (`cd faropt`)
+5. Resize the EBS volume `sh resize.sh 50`
+6. `sudo pip install -r requirements.txt`
+7. run `cdk bootstrap --profile default` followed by 
+8. `cdk deploy --profile default`
+
 ## Using the SDK
 
 ```python
