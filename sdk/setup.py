@@ -19,13 +19,13 @@ extras = {
 
 
 setup(name='faropt',
-      version='0.2.15',
+      version='0.2.17',
       description='Fargate based Numerical Optimization Template',
       url='https://github.com/aws-samples/faropt',
       author='Shreyas Subramanian',
       author_email='subshrey@amazon.com',
       license='MIT',
-      packages=find_packages(),
+      packages=['faropt'],
       #package_data={'ezsmdeploy': ['data/*']},
       extras_require = extras,
       install_requires=["boto3"],
@@ -35,5 +35,8 @@ setup(name='faropt',
                    "Natural Language :: English",
                    "License :: OSI Approved :: Apache Software License",
                    "Programming Language :: Python"],
+      package_dir={'faropt': 'faropt/data/'},
+      package_data={'faropt': ['data/routing/main.py']},
       long_description=read("README.rst")
+      
      )

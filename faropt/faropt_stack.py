@@ -87,12 +87,12 @@ class FaroptStack(core.Stack):
         # -------------------- Add worker task ------------------------
         
         faroptTask = ecs.TaskDefinition(self, 'taskDefinitionScheduler',
-            cpu='4096', memory_mib='8192',network_mode=ecs.NetworkMode.AWS_VPC,
+            cpu='4096', memory_mib='16384',network_mode=ecs.NetworkMode.AWS_VPC,
             placement_constraints=None, execution_role=nRole,
             family='Faropt-Scheduler', task_role=nRole, compatibility = ecs.Compatibility.FARGATE)
 
         faroptTask.add_container('FarOptImage', image=dockercontainer, cpu=4096,
-        memory_limit_mib=8192, memory_reservation_mib=8192,environment={'s3bucket':s3.bucket_name},
+        memory_limit_mib=16384, memory_reservation_mib=16384,environment={'s3bucket':s3.bucket_name},
         logging=ecs.LogDriver.aws_logs(stream_prefix='faroptlogs',log_group = w_logs))
             
         
@@ -147,7 +147,7 @@ class FaroptStack(core.Stack):
                                         'bucket':s3.bucket_name
                                     },
                                     timeout=core.Duration.seconds(900),
-                                    memory_size=2048,
+                                    memory_size=10240,
                                     layers = [layer2],
                                     initial_policy = [iam.PolicyStatement(actions=['ecs:RunTask','ecs:PutAccountSetting','s3:*','iam:PassRole','cloudwatch:PutMetricData'],resources=['*'])])
 

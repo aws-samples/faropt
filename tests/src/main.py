@@ -4,7 +4,8 @@
 from __future__ import print_function
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
-from utils import *
+# from utils import *
+import numpy as np
 # [END import]
 
 
@@ -118,8 +119,8 @@ def print_solution(data, manager, routing, solution):
         total_distance += route_distance
         total_load += route_load
     print('Total distance of all routes: {} m'.format(total_distance))
-    log_metric('total_distance',total_distance)
-    save('/tmp/main.py') #or some other output
+    # log_metric('total_distance',total_distance)
+    # save('/tmp/main.py') #or some other output
     print('Total load of all routes: {}'.format(total_load))
     # [END solution_printer]
 

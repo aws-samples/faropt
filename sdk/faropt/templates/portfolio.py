@@ -6,17 +6,17 @@ import zipfile
 from datetime import datetime, timedelta
 from uuid import uuid4
 import time
-try:
-    from skopt import Optimizer
-except ImportError:
-    logging.error('Reinstall package using pip install faropt[async] to use this functionality. If you have already done that, try uninstalling and reinstalling scipy')
+# try:
+#     from skopt import Optimizer
+# except ImportError:
+#     logging.error('Reinstall package using pip install faropt[async] to use this functionality. If you have already done that, try uninstalling and reinstalling scipy')
 
 import pickle
 
 logging.basicConfig(level=logging.INFO)
 
 
-class OpsPlanOpt(object):
+class PortfolioOpt(object):
     def __init__(self, stackname = 'faropt'):
         
         # Check if backend stack is launched

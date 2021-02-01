@@ -1,7 +1,7 @@
 #FROM python:3.7.0a2-alpine3.6
 FROM python:3.8.1-slim-buster
 
-RUN pip install pulp pyomo ortools boto3 deap
+RUN pip install pulp pyomo ortools boto3 deap numpy pandas
 
 COPY task.py /tmp
 
