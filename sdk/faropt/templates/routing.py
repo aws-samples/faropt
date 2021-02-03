@@ -36,7 +36,7 @@ class RoutingOpt(object):
         :param output_file: Name (and path) of the output csv file with final routes computed by the optimizer
         :type output_file: string
         """
-        
+
         
         # Check if backend stack is launched
         cf = boto3.client('cloudformation')

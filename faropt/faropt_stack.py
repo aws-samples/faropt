@@ -129,8 +129,8 @@ class FaroptStack(core.Stack):
         
         # 1- create layer
         
-        layercode = _lambda.Code.from_asset(path="./layers/orblacknp.zip") # adding np to the layer
-        layer2 = _lambda.LayerVersion(self,id="layer2",code=layercode)
+        layercode2 = _lambda.Code.from_asset(path="./layers/orblacknp.zip") # adding np to the layer
+        layer2 = _lambda.LayerVersion(self,id="layer2",code=layercode2)
         
         # 2- create function
         function2 = _lambda.Function(self, "lambda_function2",
@@ -151,6 +151,38 @@ class FaroptStack(core.Stack):
                                     layers = [layer2],
                                     initial_policy = [iam.PolicyStatement(actions=['ecs:RunTask','ecs:PutAccountSetting','s3:*','iam:PassRole','cloudwatch:PutMetricData'],resources=['*'])])
 
+        
+        
+        
+        # Lambda API resolver with faropt layer
+                # 1- create layer
+        
+        layercode3 = _lambda.Code.from_asset(path="./layers/faroptlayer.zip") # adding np to the layer
+        layer3 = _lambda.LayerVersion(self,id="layer3",code=layercode3)
+        
+        # 2- create function
+        function3 = _lambda.Function(self, "lambda_function3",
+                                    runtime=_lambda.Runtime.PYTHON_3_7,
+                                    handler="lambda-handler.lambda_handler",
+                                    code=_lambda.Code.asset("./lambda3"),
+                                    environment= {
+                                        'cluster_name': cluster.cluster_name,
+                                        'launch_type':'FARGATE',
+                                        'task_definition':faroptTask.to_string(),
+                                        'task_family':faroptTask.family,
+                                        'subnet1':subnets[0].subnet_id,
+                                        'subnet2':subnets[-1].subnet_id,
+                                        'bucket':s3.bucket_name
+                                    },
+                                    timeout=core.Duration.seconds(120),
+                                    memory_size=2048,
+                                    layers = [layer3],
+                                    initial_policy = [iam.PolicyStatement(actions=['ecs:RunTask',
+                                    'ecs:PutAccountSetting','s3:*','iam:PassRole','cloudwatch:PutMetricData',
+                                    'ecr:*','dynamodb:*',"cloudformation:Describe*","cloudformation:Get*","cloudformation:List*",
+                                    "logs:CreateLogStream","logs:PutLogEvents"],resources=['*'])])
+
+        
         
         
         
