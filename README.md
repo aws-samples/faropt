@@ -22,7 +22,7 @@ Currently supported frameworks inlcude:
 3. Check if CDK is installed `cdk --version`, or Install CDK: `npm install -g aws-cdk`  
 4. cd into the folder (`cd faropt`)
 5. Resize the EBS volume `sh resize.sh 50`
-6. `sudo pip install -r requirements.txt`
+6. `sudo pip3 install -r requirements.txt`
 7. run `cdk bootstrap --profile default` followed by 
 8. `cdk deploy --profile default`
 
