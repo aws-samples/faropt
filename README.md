@@ -1,7 +1,7 @@
 
 # FarOpt
 
-- Currently supported interfaces - PulP, Pyomo, ORtools, Deap
+- Currently supported interfaces - PulP, Pyomo, ORtools, Deap, JuMP
 - Currently supported solvers -  GLPK, COIN-OR CLP/CBC, CP-SAT, GLOP, SCIP *and if you have a license* CPLEX, GUROBI, MOSEK, XPRESS, CHOCO, MIPCL, BARON, SCOOP based EA solvers like ES, GA, CMAES and JuMP. in Julia! 
 
 ## Fargate based serverless Numerical Optimization
