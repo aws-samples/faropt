@@ -26,7 +26,7 @@ Currently supported frameworks inlcude:
 2. Clone this repo: `git clone https://github.com/aws-samples/faropt.git`
 3. `cd faropt`
 4. `./setup.sh`
-5. Enter `y` (for yes)
+5. Enter `y` at the prompt (yes)
 
 
 ## Option 2 (Try this if option 1 errors out for some reason and to debug individual steps)
@@ -40,7 +40,7 @@ Currently supported frameworks inlcude:
 7. `sudo pip3 install -r requirements.txt`
 8. run `cdk bootstrap --profile default` followed by 
 9. `cdk deploy --profile default`
-10. Enter y at the prompt (yes)
+10. Enter `y` at the prompt (yes)
 
 #### Note that if step 8 errors out and you have followed all steps correctly,  recheck all steps and the region you are in (should be us-east-1)
 
