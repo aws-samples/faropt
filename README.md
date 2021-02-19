@@ -22,7 +22,7 @@ Currently supported frameworks inlcude:
 # To create the back end stack:
 
 ## Option 1 (Try this first)
-1. Create a cloud 9 instance (choose the m5.2xlarge instance type, and a suitable availability zone in network settings,** us-east-1a**)
+1. Create a cloud 9 instance (choose the m5.2xlarge instance type, and a suitable availability zone in network settings, **us-east-1a**)
 2. Clone this repo: `git clone https://github.com/aws-samples/faropt.git`
 3. `cd faropt`
 4. `./setup.sh`
