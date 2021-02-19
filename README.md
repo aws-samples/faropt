@@ -21,14 +21,27 @@ Currently supported frameworks inlcude:
 
 # To create the back end stack:
 
+## Option 1 (Try this first)
+1. Create a cloud 9 instance (choose the m5.2xlarge instance type, and a suitable availability zone in network settings, like 1a in us-east-1)
+2. Clone this repo: `git clone https://github.com/aws-samples/faropt.git`
+3. `cd faropt`
+4. ./setup.sh
+
+
+## Option 2 (Try this if option 1 errors out for some reason and to debug ndividual steps)
+
 1. Create a cloud 9 instance (choose the m5.2xlarge instance type, and a suitable availability zone in network settings, like 1a in us-east-1)
 2. Clone this repo: `git clone https://github.com/aws-samples/faropt.git`
 3. Check if CDK is installed `cdk --version`, or Install CDK: `npm install -g aws-cdk`  
 4. cd into the folder (`cd faropt`)
-5. Resize the EBS volume `sh resize.sh 50`
-6. `sudo pip3 install -r requirements.txt`
-7. run `cdk bootstrap --profile default` followed by 
-8. `cdk deploy --profile default`
+5. delete cdk.out folder if it exists - `rm -r cdk.out`
+6. Resize the EBS volume `sh resize.sh 50`
+7. `sudo pip3 install -r requirements.txt`
+8. run `cdk bootstrap --profile default` followed by 
+9. `cdk deploy --profile default`
+10. Enter y at the prompt (yes)
+
+#### Note that if step 8 errors out and you have followed all steps correctly,  recheck all steps and the region you are in (should be us-east-1)
 
 ## Using the SDK
 
