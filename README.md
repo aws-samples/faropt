@@ -28,7 +28,7 @@ Currently supported frameworks inlcude:
 4. ./setup.sh
 
 
-## Option 2 (Try this if option 1 errors out for some reason and to debug ndividual steps)
+## Option 2 (Try this if option 1 errors out for some reason and to debug individual steps)
 
 1. Create a cloud 9 instance (choose the m5.2xlarge instance type, and a suitable availability zone in network settings, like 1a in us-east-1)
 2. Clone this repo: `git clone https://github.com/aws-samples/faropt.git`
