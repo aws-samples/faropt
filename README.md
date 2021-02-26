@@ -3,7 +3,7 @@
 FarOpt is a serverless optimization architecture that can be used to solve your optimization problems. It consists of 
 
 1. A service back end that is set up in your account (see architecture below)
-2. A python SDK to submit jobs, receive logs and do more
+2. A [python SDK](https://pypi.org/project/faropt/) to submit jobs, receive logs and do more (see docs [here](https://faropt.readthedocs.io/))
 3. Extensible set of templates to solve common optimization tasks such as Routing, Scheduling or Black-box optimization problems
 
 ### Solvers and Interfaces
