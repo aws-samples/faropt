@@ -10,7 +10,7 @@ FarOpt is a serverless optimization architecture that can be used to solve your 
 - Currently supported interfaces - PulP, Pyomo, ORtools, Deap, JuMP
 - Currently supported solvers -  GLPK, COIN-OR CLP/CBC, CP-SAT, GLOP, SCIP *and if you have a license* CPLEX, GUROBI, MOSEK, XPRESS, CHOCO, MIPCL, BARON, SCOOP based EA solvers like ES, GA, CMAES and JuMP. in Julia! 
 
-## Fargate based serverless Numerical Optimization
+## Serverless Numerical Optimization
 
 ![](./FarOpt.png)
 
@@ -52,6 +52,9 @@ Currently supported frameworks inlcude:
 #### Note that if step 8 errors out and you have followed all steps correctly,  recheck all steps and the region you are in (should be us-east-1)
 
 ## Using the SDK
+Links 
+1. Pypi project - https://pypi.org/project/faropt/
+2. SDK Docs - https://faropt.readthedocs.io/
 
 ```python
 from faropt
