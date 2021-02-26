@@ -1,6 +1,12 @@
 
 # FarOpt
+FarOpt is a serverless optimization architecture that can be used to solve your optimization problems. It consists of 
 
+1. A service back end that is set up in your account (see architecture below)
+2. A python SDK to submit jobs, receive logs and do more
+3. Extensible set of templates to solve common optimization tasks such as Routing, Scheduling or Black-box optimization problems
+
+### Solvers and Interfaces
 - Currently supported interfaces - PulP, Pyomo, ORtools, Deap, JuMP
 - Currently supported solvers -  GLPK, COIN-OR CLP/CBC, CP-SAT, GLOP, SCIP *and if you have a license* CPLEX, GUROBI, MOSEK, XPRESS, CHOCO, MIPCL, BARON, SCOOP based EA solvers like ES, GA, CMAES and JuMP. in Julia! 
 
@@ -8,8 +14,9 @@
 
 ![](./FarOpt.png)
 
-This architecture is a bare bones template of how you can run optimization models in a serverless fashion on Fargate. The Open source SDK can be used to submit optimization tasks and receive logs. 
+This architecture is a bare bones template of how you can run optimization models in a serverless fashion on AWS Fargate and Lambda. The Open source SDK can be used to submit optimization tasks and receive logs. 
 Fargate will launch the container, run your code, push logs to cloudwatch and exit - you only pay for the seconds that this _optimzation task_ runs. 
+Similarly, Lambda will run your code and push logs to cloudwatch and exit.
 
 Currently supported frameworks inlcude: 
 
