@@ -1,5 +1,11 @@
-
-# FarOpt
+```html
+ ███████╗ █████╗ ██████╗  ██████╗ ██████╗ ████████╗
+ ██╔════╝██╔══██╗██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝
+ █████╗  ███████║██████╔╝██║   ██║██████╔╝   ██║   
+ ██╔══╝  ██╔══██║██╔══██╗██║   ██║██╔═══╝    ██║   
+ ██║     ██║  ██║██║  ██║╚██████╔╝██║        ██║   
+ ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝        ╚═╝  
+```
 FarOpt is a serverless optimization architecture that can be used to solve your optimization problems. It consists of 
 
 1. A service back end that is set up in your account (see architecture below)
