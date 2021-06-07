@@ -149,7 +149,7 @@ class FaroptStack(core.Stack):
                                     timeout=core.Duration.seconds(900),
                                     memory_size=10240,
                                     layers = [layer2],
-                                    initial_policy = [iam.PolicyStatement(actions=['ecs:RunTask','ecs:PutAccountSetting','s3:*','iam:PassRole','cloudwatch:PutMetricData'],resources=['*'])])
+                                    initial_policy = [iam.PolicyStatement(actions=['ecs:RunTask','ecs:PutAccountSetting','s3:*','iam:PassRole','cloudwatch:PutMetricData','cloudformation:DescribeStacks'],resources=['*'])])
 
         
         
@@ -159,6 +159,9 @@ class FaroptStack(core.Stack):
         
         layercode3 = _lambda.Code.from_asset(path="./layers/faroptlayer.zip") # adding np to the layer
         layer3 = _lambda.LayerVersion(self,id="layer3",code=layercode3)
+        
+        # layercode4 = _lambda.Code.from_asset(path="./layers/faroptlayerasync.zip") # adding np to the layer
+        # layer4 = _lambda.LayerVersion(self,id="layer4",code=layercode4)
         
         # 2- create function
         function3 = _lambda.Function(self, "lambda_function3",
@@ -180,7 +183,7 @@ class FaroptStack(core.Stack):
                                     initial_policy = [iam.PolicyStatement(actions=['ecs:RunTask',
                                     'ecs:PutAccountSetting','s3:*','iam:PassRole','cloudwatch:PutMetricData',
                                     'ecr:*','dynamodb:*',"cloudformation:Describe*","cloudformation:Get*","cloudformation:List*",
-                                    "logs:CreateLogStream","logs:PutLogEvents"],resources=['*'])])
+                                    "logs:CreateLogStream","logs:PutLogEvents",'cloudformation:DescribeStacks'],resources=['*'])])
 
         
         

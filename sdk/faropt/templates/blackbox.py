@@ -94,6 +94,9 @@ class AsyncOpt(object):
             logging.info('created model with name '+ self.modelname)
             
             if modeltag!='':
+                
+                self.modeltag = modeltag
+                
                 s3_client = boto3.client('s3')
                 response = s3_client.put_object_tagging(
                     Bucket=self.asyncbucket,
@@ -170,6 +173,8 @@ class AsyncOpt(object):
 
         client = boto3.client('s3')
         result = client.list_objects(Bucket=self.asyncbucket,Delimiter='/model.pkl',MaxKeys=100)
+        model_list={}
+        
         for o in result.get('CommonPrefixes'):
             tmpprefix = o.get('Prefix')
             
@@ -177,8 +182,50 @@ class AsyncOpt(object):
             
             if response['TagSet']==[]:
                 print('model ', ' <None> :', tmpprefix)
+                model_list[tmpprefix]='None'
             else:
                 print('model ', response['TagSet'][0]['Value'], ':', tmpprefix)
+                model_list[tmpprefix]=response['TagSet'][0]['Value']
+        
+        return model_list
+                
+    def get_points(self, modelname=''):
+        self.ask_model(modelname)
+        
+        Xi = self.model.Xi
+        yi = self.model.yi
+        
+        return {"Xi":Xi, "yi":yi}   
+        
+    def predict(self,xval,modelname=''):
+        self.ask_model(modelname)
+        
+        if len(self.model.Xi)<10:
+            return "Error: Need at least 10 points"
+        else:
+            return {"f_predict":self.model.models[0].predict(xval)}
+        
+    
+    def get_model_uuid_from_tag(self, modeltag):
+        """Gets UUID of model (which is also the S3 prefix) from the modeltag (friendly name used to create the model)
+
+        :param modeltag: Friendly name of model used on create
+        :type modeltag: string
+        """
+        
+        client = boto3.client('s3')
+        result = client.list_objects(Bucket=self.asyncbucket,Delimiter='/model.pkl',MaxKeys=100)
+        
+        for o in result.get('CommonPrefixes'):
+            response = client.get_object_tagging(Bucket=self.asyncbucket,Key=o['Prefix'])
+            if response['TagSet']!=[]:
+
+                if response['TagSet'][0]['Value']==modeltag:
+                    return o['Prefix'].split('/')[0]
+                
+            
+                
+        
         
         
         

@@ -1,7 +1,7 @@
 #FROM python:3.7.0a2-alpine3.6
 FROM python:3.8.1-slim-buster
 
-RUN pip install pulp pyomo ortools boto3 deap numpy pandas
+RUN pip install pulp pyomo ortools boto3 deap numpy pandas xpress
 
 COPY task.py /tmp
 
@@ -10,6 +10,9 @@ COPY main.py /tmp
 
 #common utils
 COPY utils.py /tmp
+
+COPY xpauth.xpr /tmp
+ENV XPRESS "/tmp/xpauth.xpr"
 
 RUN apt-get update && apt-get install -y libaio1 wget unzip
 

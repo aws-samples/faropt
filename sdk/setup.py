@@ -19,14 +19,13 @@ extras = {
 
 
 setup(name='faropt',
-      version='0.2.17',
+      version='0.2.20',
       description='Fargate based Numerical Optimization Template',
       url='https://github.com/aws-samples/faropt',
       author='Shreyas Subramanian',
       author_email='subshrey@amazon.com',
       license='MIT',
       packages=['faropt'],
-      #package_data={'ezsmdeploy': ['data/*']},
       extras_require = extras,
       install_requires=["boto3"],
       zip_safe=False,

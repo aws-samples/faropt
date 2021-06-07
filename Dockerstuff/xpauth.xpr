@@ -1,0 +1,9 @@
+license expiry="never" features="Hyper OptLib OptJava Integer Barrier \
+	Quadratic MosRTLib MosMCLib MosRTJava MosMCJava IVE Network \
+	ParaBar=1024 ParaMIP=1024 mmxprs mmxad mmodbc mmoci BCL \
+	BCLJava SLPLib mmxslp MINLP" fico_xpress_release="8.11" \
+	hostid="any" oem="Amazon Applications" platform="any" \
+	release="2020" static="uncounted" terminal-services sig="5307 \
+	76c6 ee38 6c6b ef8c 77b0 de2e 084b 49a8 dfa1 a3d0 7820 1333 \
+	023f 571a bb99 c51d 877c f98a 6e23 04e9 7ce1 7458 4384 bb99 \
+	ca28 8566 c392 b595 0dd6 3b57 9e6e"
