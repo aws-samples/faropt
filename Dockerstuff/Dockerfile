@@ -11,9 +11,6 @@ COPY main.py /tmp
 #common utils
 COPY utils.py /tmp
 
-COPY xpauth.xpr /tmp
-ENV XPRESS "/tmp/xpauth.xpr"
-
 RUN apt-get update && apt-get install -y libaio1 wget unzip
 
 # Install Julia and JUMP
