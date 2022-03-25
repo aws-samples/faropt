@@ -682,7 +682,7 @@ Resources:
         Fn::GetAtt:
           - BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC
           - Arn
-      Runtime: nodejs10.x
+      Runtime: nodejs14.x
       Timeout: 300
     DependsOn:
       - BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36
